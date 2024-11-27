@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    public function productsByCategory($categoryId)
+    {
+        $category = Category::with('products')->find($categoryId);
+
+        if (!$category) {
+            return response()->json(['message' => 'القسم غير موجود'], 404);
+        }
+
+        return $category->products;
+    }
+
     /**
      * Display a listing of the resource.
      *
