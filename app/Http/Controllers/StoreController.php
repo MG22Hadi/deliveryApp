@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+
+    public function get_all_stores()
+    {
+        $stores=Store::all();
+        return response()->json($stores);
+    }
+
+    public function get_one_store($storeId)
+    {
+        $store=Store::find($storeId);
+        if (!$store) {
+            return response()->json(['message' => 'لا يوجد هكذا متجر لدينا'], 404);
+        }
+        return response()->json($store);
+    }
+
     /**
      * Display a listing of the resource.
      *

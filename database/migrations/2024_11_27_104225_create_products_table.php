@@ -21,6 +21,9 @@ return new class extends Migration
                                     // before fasle  //after
             $table->decimal('price', 8, 2);
             $table->string('image');
+            $table->string('categoryName');
+            $table->string('storeName');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

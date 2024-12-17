@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('stores', [StoreController::class, 'get_all_stores']);
 
-Route::get('categories/{categoryId}/products', [ProductsController::class, 'productsByCategory']);
+Route::get('categories/{categoryId}/products', [ProductController::class, 'productsByCategory']);
