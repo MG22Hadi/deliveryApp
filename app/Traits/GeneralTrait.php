@@ -20,7 +20,7 @@ trait GeneralTrait
     }
 
 
-    public function returnSuccessMessage($msg = "", $errNum = "S000")
+    public function returnSuccessMessage($msg = "", $errNum = "N500")
     {
         return [
             'status' => true,
@@ -57,7 +57,7 @@ trait GeneralTrait
     public function getErrorCode($input)
     {
         if ($input == "name")
-            return 'E0011';
+            return 'E001';
 
         else if ($input == "password")
             return 'E002';
