@@ -56,9 +56,11 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $products)
+    public function showP()
     {
         //
+        $p=Products::all();
+        return response()->json($p);
     }
 
     /**
