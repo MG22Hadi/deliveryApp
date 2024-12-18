@@ -20,9 +20,12 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'username',
+        'phone',
         'email',
         'password',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,27 +46,21 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-   // Rest omitted for brevity
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
+    public function cart()
+    {//TODO
+        //return $this->hasOne(Cart::class);
+        return $this->hasMany(Cart::class);
+
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
     public function getJWTCustomClaims()
     {
         return [];
     }
-
-
 }
