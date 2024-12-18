@@ -11,7 +11,6 @@ class CartController extends Controller
     //TODO new cart ?????
     public function addToCart($productId,$i)
     {
-
         $product = Product::find($productId);
         if (!$product) {
             return response()->json(['message' => 'لا يوجد هكذا منتج لدينا'], 404);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
@@ -40,3 +41,6 @@ Route::get('one-product/{productId}', [ProductController::class, 'get_one_produc
 Route::put('cart/{productId}/{i}', [CartController::class,'addToCart']);
 
 Route::get('cart/{i}', [CartController::class,'showCart']);
+
+Route::post('/products/{product}/favorite', [FavouriteController::class, 'store']);
+Route::delete('/products/{product}/favorite', [FavouriteController::class, 'destroy']);
