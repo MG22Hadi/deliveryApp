@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function showCats($storeId)
+    {
+        $store = Store::find($storeId);
+        if (!$store) {
+            return response()->json(['message' => 'لا يوجد هكذا متجر لدينا'], 404);
+        }
+        $cats = $store->categories;
+
+        return response()->json($cats);
+    }
     /**
      * Display a listing of the resource.
      *

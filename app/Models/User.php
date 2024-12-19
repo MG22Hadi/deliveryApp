@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'remember_token'
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,27 +47,24 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-   // Rest omitted for brevity
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
+    public function cart()
+    {//TODO
+        return $this->hasOne(Cart::class);
+        //return $this->hasMany(Cart::class);
+    }
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id')->withTimestamps();
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
     public function getJWTCustomClaims()
     {
         return [];
     }
-
-
 }

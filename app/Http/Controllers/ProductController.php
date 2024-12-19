@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     public function productsByCategory($categoryId)
     {
@@ -16,9 +17,32 @@ class ProductsController extends Controller
             return response()->json(['message' => 'القسم غير موجود'], 404);
         }
 
-        return $category->products;
+        //return $category->products;
+        return response()->json($category->products);
+        /*DB::table('stores')->truncate();*/
     }
 
+    public function get_one_product($productId)
+    {
+        $product = Product::find($productId);
+        if (!$product) {
+            return response()->json(['message' => 'لا يوجد هكذا منتج لدينا'], 404);
+        }
+        $id=$product->category_id;
+        $cat_name=Category::find($id);
+        return response()->json([$product,$cat_name]);
+
+        //TODO
+        /* للنقاش هل يلزمني ايدي القسم أم لا
+        // وضع الابي المناسب في حال اعتمدنا هيك
+       public function showProduct($catId, $productId)
+       {
+           $cat = Category::findOrFail($catId);
+           $product = $category->products->find($productId);
+
+       }
+        */
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,23 +77,21 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function showP()
+    public function show(Product $products)
     {
         //
-        $p=Products::all();
-        return response()->json($p);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $products)
+    public function edit(Product $products)
     {
         //
     }
@@ -78,10 +100,10 @@ class ProductsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, Product $products)
     {
         //
     }
@@ -89,10 +111,10 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy(Product $products)
     {
         //
     }

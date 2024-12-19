@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('stores', [StoreController::class, 'get_all_stores']);
 
-//Route::get('categories/{categoryId}/products', [ProductsController::class, 'productsByCategory']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('categories/{categoryId}/products', [ProductController::class, 'productsByCategory']);
