@@ -4,10 +4,13 @@ namespace App\Http\Controllers\api\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Token;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\GeneralTrait;
+use Illuminate\Validation\Rules\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -18,51 +21,37 @@ class AuthController extends Controller
     //
     use GeneralTrait;
 
-//    public function login(Request $request)
-//    {
-//
-//     try {
-//        $rules = [
-//            "phone" => "required",
-//            "password" => "required"
-//        ];
-//
-//        $validator = Validator::make($request->all(), $rules);
-//
-//        if ($validator->fails()) {
-//            $code = $this->returnCodeAccordingToInput($validator);
-//            return $this->returnValidationError($code, $validator);
-//        }
-//
-//        //login
-//
-//        $credentials = $request->only(['phone', 'password']);
-//        $token = JWTAuth::guard('user-api')->attempt($credentials);  //generate token
-//
-//
-//        if (!$token) {
-//            return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
-//        }
-//
-//        $user = Auth::guard('user-api')->user();
-//        $user ->user_token = $token;
-//        $user = User::where('email', $request->email)->first();
-//        Token::create([
-//            'user_id' => $user->id,
-//            'token' => $token,
-//        ]);
-//
-//        return response()->json(compact('token'));
-//        //return token
-//        return $this->returnData('user', $user);  //return json response
-//
-//
-//        } catch (\Exception $ex) {
-//            return $this->returnError($ex->getCode(), $ex->getMessage());
-//
-//        }
-//    }
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255|unique:users',
+            'phone' => 'required|string|max:20|unique:users',
+            'email' => 'nullable|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
+        ]);
 
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+
+        try{
+            $user = User::create([
+                'username' => $request->username,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            // Optionally generate a token for immediate login after registration
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return $this->returnData('user', $user, ['token' => $token]); // Return user data along with the token
+
+        } catch (\Exception $ex) {
+             return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
     public function login(Request $request) {
         try {
             // Validation rules
@@ -81,7 +70,7 @@ class AuthController extends Controller
 
             // Attempt to log in and generate a token
             $credentials = $request->only(['phone', 'password']);
-            $token = Auth::guard('user-api')->attempt($credentials);
+            $token = JWTAuth::attempt($credentials);
 
             // Check if token was generated
             if (!$token) {
@@ -89,7 +78,7 @@ class AuthController extends Controller
             }
 
             // Get the authenticated user
-            $user = JWTAuth::guard('user-api')->user();
+            $user = JWTAuth::user();
 
             // Store the token in the database
 
@@ -99,8 +88,8 @@ class AuthController extends Controller
             ]);
 
             // Optionally, you can also update the user model with the token
-             $user->remember_token = $token; // If you have a user_token field in the users table
-             $user->save();
+//             $user->remember_token = $token; // If you have a user_token field in the users table
+//             $user->save();
 
             // Return the token and user data in the response
             return $this->returnData('user', $user, ['token' => $token]); // Return user data along with the token
@@ -111,7 +100,7 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-            // Get the token from the request header
+    // Get the token from the request header
     $token = $request->header('auth-token');
 
     // Check if the token is provided
