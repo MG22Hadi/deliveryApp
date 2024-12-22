@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
         $users=[
             ['name'=>'nour','email'=>'nour@gmail.com','password'=>'123456789'],
             ['name'=>'hadi','email'=>'hadi@gmail.com','password'=>'987654321'],
-
         ];
 
         foreach ($users as $user){
