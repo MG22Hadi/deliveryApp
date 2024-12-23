@@ -23,6 +23,16 @@ class StoreController extends Controller
         return response()->json($store);
     }
 
+    public function search($storename)
+    {
+        $stores = Store::where('name', 'like', "%$storename%")->get();
+
+        if ($stores->isEmpty()) {
+            return response()->json(['message' => 'عفواً ليس لدينا منتجات كهذه'], 404);
+        }
+
+        return response()->json( $stores);
+    }
     /**
      * Display a listing of the resource.
      *

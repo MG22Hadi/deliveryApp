@@ -14,7 +14,6 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255|unique:users',
             'phone' => 'required|string|max:20|unique:users',
-            'email' => 'nullable|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
         ]);
 
@@ -30,7 +29,6 @@ class AuthController extends Controller
             $user = User::create([
                 'username' => $request->username,
                 'phone' => $request->phone,
-                'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
 
@@ -46,7 +44,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Registration failed: ' . $e->getMessage(), // Include the error message for debugging
+                'message' => 'Registration failed: ' . $e->getMessage(),
             ], 500);
         }
     }

@@ -9,39 +9,52 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    // دالة إرجاع جميع منتجات قسم عن طريق id القسم
     public function productsByCategory($categoryId)
     {
+        // نبحث عن القسم مع منتجاتو ونخزنو
         $category = Category::with('products')->find($categoryId);
 
+        // إذا ما لقينا القسم
         if (!$category) {
             return response()->json(['message' => 'القسم غير موجود'], 404);
         }
-
-        //return $category->products;
+        // نرجع المنتجات
         return response()->json($category->products);
-        /*DB::table('stores')->truncate();*/
     }
 
+    // دالة إرجاع منتج محدد عن طريق id الخاصة به
     public function get_one_product($productId)
     {
+        // لاقي المنتج
         $product = Product::find($productId);
         if (!$product) {
             return response()->json(['message' => 'لا يوجد هكذا منتج لدينا'], 404);
         }
+        // مشان جيب اسم القسم
         $id=$product->category_id;
         $cat_name=Category::find($id);
+        // رجع المنتج واسم القسم اللي تابعلو
         return response()->json([$product,$cat_name]);
+    }
 
-        //TODO
-        /* للنقاش هل يلزمني ايدي القسم أم لا
-        // وضع الابي المناسب في حال اعتمدنا هيك
-       public function showProduct($catId, $productId)
-       {
-           $cat = Category::findOrFail($catId);
-           $product = $category->products->find($productId);
+    //دالة جيب كل المنتجات مشان صفحة المنتجات
+    public function get_all_products()
+    {
+        $products=Product::all();
+        return response()->json($products);
+    }
+    // دالة بحث عن منتج عن طريق اسمو
+    public function search($productname)
+    {
+        // نلاقي منتج متل هالاسم
+        $products = Product::where('name', 'like', "%$productname%")->get();
 
-       }
-        */
+        if ($products->isEmpty()) {
+            return response()->json(['message' => 'عفواً ليس لدينا منتجات كهذه'], 404);
+        }
+
+        return response()->json($products);
     }
     /**
      * Display a listing of the resource.

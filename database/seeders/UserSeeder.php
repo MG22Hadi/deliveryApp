@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users=[
-            ['name'=>'nour','email'=>'nour@gmail.com','password'=>'123456789'],
-            ['name'=>'hadi','email'=>'hadi@gmail.com','password'=>'987654321'],
+            ['username'=>'nour','phone'=>'0955422200','password'=>'123456789'],
+            ['username'=>'hadi','phone'=>'0938523272','password'=>'987654321'],
 
         ];
 
