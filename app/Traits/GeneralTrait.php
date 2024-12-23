@@ -10,7 +10,7 @@ trait GeneralTrait
         return app()->getLocale();
     }
 
-    public function returnError($errNum, $msg)
+    public function returnError($errNum, $msg): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => false,
@@ -20,7 +20,7 @@ trait GeneralTrait
     }
 
 
-    public function returnSuccessMessage($msg = "", $errNum = "N500")
+    public function returnSuccessMessage($msg = "", $errNum = "S000")
     {
         return [
             'status' => true,
@@ -47,7 +47,7 @@ trait GeneralTrait
     }
 
 
-    public function returnCodeAccordingToInput($validator)
+    public function  returnCodeAccordingToInput($validator)
     {
         $inputs = array_keys($validator->errors()->toArray());
         $code = $this->getErrorCode($inputs[0]);
@@ -57,7 +57,7 @@ trait GeneralTrait
     public function getErrorCode($input)
     {
         if ($input == "name")
-            return 'E001';
+            return 'E0011';
 
         else if ($input == "password")
             return 'E002';

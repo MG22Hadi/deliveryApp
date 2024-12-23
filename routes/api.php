@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -60,3 +61,8 @@ Route::get('cart/{i}', [CartController::class,'showCart']);
 Route::post('/products/{product}/favourite', [FavouriteController::class, 'store']);
 //Route::post('/products/{product_id}/favourite', [FavouriteController::class, 'store']);
 Route::delete('/products/{product}/favorite', [FavouriteController::class, 'destroy']);
+
+Route::post('/register',[\App\Http\Controllers\api\user\AuthController::class, 'register']);
+Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'login']);
+Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'logout']) ;
+
