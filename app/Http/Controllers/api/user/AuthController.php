@@ -109,35 +109,70 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request) {
-            // Get the token from the request header
-    $token = $request->header('auth-token');
-
-    // Check if the token is provided
-    if (!$token) {
-        return $this->returnError('', 'Token not provided');
-    }
-
+   public function logout(Request $request): JsonResponse
+{
     try {
-        // Invalidate the token
+        // الحصول على التوكن الحالي
+        $token = JWTAuth::getToken();
+
+
+        // الحصول على المستخدم الحالي
+        $user = Auth::guard('user-api')->user();
+       // dd($user); // تحقق من التوكن
+
+
+        if (!$user) {
+            return $this->returnError('E005', 'المستخدم غير موجود');
+        }
+
         JWTAuth::invalidate($token);
+        if ($user) {
+            // حذف التوكن من حقل remember_token في جدول users
+            $user->remember_token = null;
+            $user->save();
 
-        // Optionally, store the token in a blacklist
+            // حذف الصف الكامل من جدول tokens المرتبط بالمستخدم
+            Token::where('user_id', $user->id)->delete();
+        }
 
+        // إرجاع رسالة نجاح
+        return $this->returnSuccessMessage('تم تسجيل الخروج بنجاح');
 
-        return $this->returnSuccessMessage('Logged out successfully');
-    } catch (TokenInvalidException $e) {
-        return $this->returnError('', 'Token is invalid');
     } catch (TokenExpiredException $e) {
-        return $this->returnError('', 'Token has expired');
+        // إذا كان التوكن منتهي الصلاحية
+        return $this->returnError('E002', 'انتهت صلاحية التوكن');
+
+    } catch (TokenInvalidException $e) {
+        // إذا كان التوكن غير صالح
+        return $this->returnError('E003', 'التوكن غير صالح');
+
     } catch (JWTException $e) {
-        return $this->returnError('', 'Could not invalidate token');
+        // إذا حدث خطأ في JWT
+        return $this->returnError('E004', 'فشل في تسجيل الخروج: ' . $e->getMessage());
+
     } catch (\Exception $e) {
-        return $this->returnError('', 'Something went wrong: ' . $e->getMessage());
+        // إذا حدث أي خطأ آخر
+        return $this->returnError($e->getCode(), $e->getMessage());
     }
+}
 
+public function getUser(Request $request): JsonResponse
+{
+    try {
+        // الحصول على المستخدم الحالي
+        $user = Auth::guard('user-api')->user();
 
+        if (!$user) {
+            return $this->returnError('E005', 'المستخدم غير موجود');
+        }
+
+        // إرجاع بيانات المستخدم
+        return $this->returnData('user', $user);
+
+    } catch (\Exception $e) {
+        return $this->returnError($e->getCode(), $e->getMessage());
     }
+}
 
 
 }
