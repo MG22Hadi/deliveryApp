@@ -67,5 +67,5 @@ Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'log
 Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'logout']) ;
 
 Route::get('/getUser', [\App\Http\Controllers\api\user\AuthController::class, 'getUser']);
-
+Route::post('refresh', [\App\Http\Controllers\api\user\AuthController::class, 'refresh']);
 
