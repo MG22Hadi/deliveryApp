@@ -35,11 +35,10 @@ class AuthService
      * Login a user.
      *
      * @param array $credentials
-     * @param bool $rememberMe
      * @return string
      * @throws \Exception
      */
-    public function login(array $credentials, bool $rememberMe = false): string
+    public function login(array $credentials): string
     {
         $token = Auth::guard('user-api')->attempt($credentials);
 
