@@ -41,7 +41,7 @@ class AuthService
      */
     public function login(array $credentials, bool $rememberMe = false): string
     {
-        $token = Auth::guard('user-api')->setTTL($rememberMe ? 43200 : 60)->attempt($credentials);
+        $token = Auth::guard('user-api')->attempt($credentials);
 
         if (!$token) {
             throw new \Exception('بيانات الدخول غير صحيحة', 401);
@@ -68,9 +68,6 @@ class AuthService
             // Invalidate the token
             JWTAuth::invalidate(JWTAuth::getToken());
 
-            // Clear the token from the user model (if stored)
-            $user->remember_token = null;
-            $user->save();
 
         } catch (\Exception $e) {
             throw new \Exception('Failed to logout: ' . $e->getMessage(), 500);
@@ -80,7 +77,7 @@ class AuthService
     /**
      * Get the authenticated user.
      *
-     * @return \App\Models\User
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      * @throws \Exception
      */
     public function getUser()

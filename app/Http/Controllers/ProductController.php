@@ -32,10 +32,10 @@ class ProductController extends Controller
             return response()->json(['message' => 'لا يوجد هكذا منتج لدينا'], 404);
         }
         // مشان جيب اسم القسم
-        $id=$product->category_id;
-        $cat_name=Category::find($id);
+        //$id=$product->category_id;
+        //$cat_name=Category::find($id);
         // رجع المنتج واسم القسم اللي تابعلو
-        return response()->json([$product,$cat_name]);
+        return response()->json([$product]);
     }
 
     //دالة جيب كل المنتجات مشان صفحة المنتجات

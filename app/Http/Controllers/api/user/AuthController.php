@@ -5,7 +5,6 @@ namespace App\Http\Controllers\api\user;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\GeneralTrait;
 use Illuminate\Validation\Rules\Password;
@@ -37,7 +36,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'first-name' => 'string|max:255',
             'last-name' => 'string|max:255',
-            'phone' => 'required|string|max:20|unique:users',
+            'phone' => 'required|string|max:10|min:10|unique:users',
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
         ]);
 
