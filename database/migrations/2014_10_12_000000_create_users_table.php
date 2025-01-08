@@ -20,12 +20,13 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->string('phone')->unique();
             $table->string('password');
-            $table->text('remember_token');
+            $table->text('remember_token')->nullable();
             $table->timestamps();
         });
     }
 
     /**
+     *
      * Reverse the migrations.
      *
      * @return void
