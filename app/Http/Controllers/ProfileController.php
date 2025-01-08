@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function uploadImage(Request $request, $user_id)
+    public function uploadImage(Request $request,$user_id)
     {
         $user = User::find($user_id);
 
