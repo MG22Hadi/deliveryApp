@@ -54,7 +54,6 @@ class ProfileController extends Controller
 
         $userData = [
             'id' => $user->id,
-            'username'=>$user->username,
             'first-name' => $user->firstName,
             'last-name' => $user->lastName,
             'phone' => $user->phone,
