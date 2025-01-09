@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     {
         $products=[
 
-            ['category_id'=>'1','name'=>'Popcorn','description'=>'Ready-to-eat popcorn, various flavors available.','price'=>'50.0','image'=>'images/products/food/corn.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'200'],
+            ['category_id'=>'1','name'=>'Popcorn','description'=>'Ready-to-eat popcorn, various flavors available.','price'=>'50.0','image'=>'storage/app/public/images/products/food/corn.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'200'],
             ['category_id'=>'1','name'=>'Cardamom Pods','description'=>'Aromatic and flavorful cardamom pods, perfect for cooking, baking, and beverages.','price'=>'25.0','image'=>'images/products/food/cardamon.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
             ['category_id'=>'1','name'=>'Kiri Cheese','description'=>'Creamy and smooth cheese, perfect for breakfast and snacks.','price'=>'20.0','image'=>'images/products/food/kiri.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
 
