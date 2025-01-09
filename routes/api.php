@@ -69,3 +69,6 @@ Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'lo
 Route::get('/getUser', [\App\Http\Controllers\api\user\AuthController::class, 'getUser']);
 Route::post('/refresh', [\App\Http\Controllers\api\user\AuthController::class, 'refresh']);
 
+Route::put('/updateUser', [\App\Http\Controllers\api\user\AuthController::class, 'updateUser']);
+
+Route::put('/change-password', [\App\Http\Controllers\api\user\AuthController::class, 'changePassword']);
