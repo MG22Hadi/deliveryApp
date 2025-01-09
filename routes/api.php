@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //تسجيل حساب لأول مرة       //
 //Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/users/{user}/upload-image', [ProfileController::class,'uploadImage']);
+Route::post('users/upload-image', [ProfileController::class,'uploadImage']);
 
 Route::get('/users/{user}/showProfile', [ProfileController::class,'showProfile']);
 
@@ -67,5 +67,5 @@ Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'log
 Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'logout']) ;
 
 Route::get('/getUser', [\App\Http\Controllers\api\user\AuthController::class, 'getUser']);
-Route::post('refresh', [\App\Http\Controllers\api\user\AuthController::class, 'refresh']);
+Route::post('/refresh', [\App\Http\Controllers\api\user\AuthController::class, 'refresh']);
 

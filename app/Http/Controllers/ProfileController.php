@@ -3,15 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function uploadImage(Request $request,$user_id)
+    protected $authService;
+
+    /**
+     * Constructor to inject AuthService.
+     *
+     * @param AuthService $authService
+     */
+    public function __construct(AuthService $authService)
     {
-        $user = User::find($user_id);
+        $this->authService = $authService;
+    }
+
+    public function uploadImage(Request $request)
+    {
+         $user = $this->authService->getUser();
 
 
         if (!$user) {
@@ -69,5 +82,9 @@ class ProfileController extends Controller
         }
 
         return response()->json($userData, 200);
+    }
+
+    public function editProfile(Request $request){
+
     }
 }

@@ -93,7 +93,7 @@ class AuthController extends Controller
         }
     }
 
-    public function getUser(Request $request)
+    public function getUser()
     {
         try {
             $user = $this->authService->getUser();
