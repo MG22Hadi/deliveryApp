@@ -33,6 +33,15 @@ class StoreController extends Controller
 
         return response()->json( $stores);
     }
+
+    public function mostfamous()
+    {
+        $stores = Store::where('id', '>=', 1)
+            ->where('id', '<=', 4)
+            ->get();
+        return response()->json($stores);
+    }
+
     /**
      * Display a listing of the resource.
      *

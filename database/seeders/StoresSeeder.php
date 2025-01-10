@@ -19,6 +19,8 @@ class StoresSeeder extends Seeder
             ['name'=>'Al Amin','address'=>'mazeh','phone'=>'0955422200','logo'=>'//','description'=>'متجر أغذية'],
             ['name'=>'Noura ','address'=>'msaken barzeh','phone'=>'0955422200','logo'=>'//','description'=>'متجر أغذية'],
             ['name'=>'Al hadi','address'=>'mazeh','phone'=>'0938523272','logo'=>'//','description'=>'متجر الكترونيات'],
+            ['name'=>'Al hyat','address'=>'bramkeh','phone'=>'0938523272','logo'=>'//','description'=>'متجر الكترونيات'],
+
         ];
 
         foreach ($stores as $store){
