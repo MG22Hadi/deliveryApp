@@ -56,6 +56,25 @@ class ProductController extends Controller
 
         return response()->json($products);
     }
+
+
+    public function Ads()
+    {
+    $products = Product::where('id', '>=', 1)
+        ->where('id', '<=', 3)
+        ->get();
+    return response()->json($products);
+    }
+
+    public function mostSell()
+    {
+        $products = Product::where('id', '>=', 5)
+            ->where('id', '<=', 10)
+            ->get();
+        return response()->json($products);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -5,44 +5,97 @@ namespace App\Http\Controllers;
 use App\Models\Favourite;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
-    public function store(Product $product)
+    protected $authService;
+
+    /**
+     * Constructor to inject AuthService.
+     *
+     * @param AuthService $authService
+     */
+    public function __construct(AuthService $authService)
     {
-        //$user = Auth::user();
-        $user=User::find(1);
-        if ($user->favorites()->where('product_id', $product->id /*$product_id*/)->exists()) {
-            return response()->json(['message' => 'المنتج موجود بالفعل في المفضلة'], 409);
-        }
-
-        $user->favorites()->attach($product);
-
-        return response()->json(['message' => 'تمت إضافة المنتج إلى المفضلة بنجاح'], 201);
+        $this->authService = $authService;
     }
 
-    public function destroy(Request $request, Product $product)
+    public function addTofav($product_id)
     {
-        $user = Auth::user();
 
-        $user->favorites()->detach($product);
 
-        return response()->json(['message' => 'تم حذف المنتج من المفضلة بنجاح']);
+        // الحصول على المستخدم الحالي من التوكن
+        $user = $this->authService->getUser();
+
+        // اتأكد إذا موجود بالسلة مسبقاً مافي داعي بس كترة غلبة
+        $existingFavourite = Favourite::where('user_id', $user->id)
+            ->where('product_id', $product_id)
+            ->first();
+
+        if ($existingFavourite) {
+            return response()->json(['message' => 'Product already in favourites'], 400);
+        }
+
+        // إضافة عجدول المفضلة
+        $favourite = Favourite::create([
+            'user_id' => $user->id,
+            'product_id' => $product_id,
+        ]);
+
+        return response()->json(['message' => 'Product added to favourites', 'data' => $favourite], 201);
+    }
+
+    public function destroyFav(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        // الحصول على المستخدم الحالي من التوكن
+        $user = $this->authService->getUser();
+
+        // البحث عنو إذا موجود بالمفضلة بناءً على user_id و product_id
+        $favourite = Favourite::where('user_id', $user->id)
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if (!$favourite) {
+            return response()->json(['message' => 'Favourite not found'], 404);
+        }
+
+        // حذف من جدول المفضلة
+        $favourite->delete();
+
+        return response()->json(['message' => 'Product removed from favourites'], 200);
+    }
+    public function showFav()
+    {
+        // الحصول على المستخدم الحالي من التوكن
+        $user = $this->authService->getUser();
+
+        // جلب المنتجات المفضلة مع تفاصيل المنتج
+        $favourites = Favourite::with('product')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return response()->json(['data' => $favourites], 200);
+    }
+
+    public function checkFav(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        $user = $this->authService->getUser();
+
+        $isFavourite = Favourite::where('user_id', $user->id)
+            ->where('product_id', $request->product_id)
+            ->exists();
+
+        return response()->json(['is_favourite' => $isFavourite], 200);
     }
 }
 
-//public function store($product_id)
-//{
-//    $user = User::find(1);
-//    if ($user->favorites()->where('product_id', $product_id)->exists()) {
-//        return response()->json(['message' => 'المنتج موجود بالفعل في المفضلة'], 409); // Conflict
-//    }
-//
-//    Favourite::create([
-//        'user_id' => $user->id(),
-//        'product_id' => $product_id,
-//    ]);
-//
-//    return response()->json(['message' => 'تمت إضافة المنتج إلى المفضلة بنجاح'], 201);
-//}

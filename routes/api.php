@@ -1,7 +1,6 @@
 <?php
 
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavouriteController;
@@ -26,8 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//تسجيل حساب لأول مرة       //
-//Route::post('/register', [AuthController::class, 'register']);
+Route::get('products/ad', [ProductController::class, 'Ads']);
+
+Route::get('products/mostSell', [ProductController::class, 'mostSell']);
+
+Route::get('products/mostfamous', [StoreController::class, 'mostfamous']);
 
 Route::post('users/upload-image', [ProfileController::class,'uploadImage']);
 
@@ -56,11 +58,17 @@ Route::get('/products/search/{productName}', [ProductController::class, 'search'
 // بحث عن متجر عن طريق اسمه     //
 Route::get('/stores/search/{storeName}', [StoreController::class, 'search']);
 
-Route::put('cart/{productId}/{i}', [CartController::class,'addToCart']);
-Route::get('cart/{i}', [CartController::class,'showCart']);
-Route::post('/products/{product}/favourite', [FavouriteController::class, 'store']);
-//Route::post('/products/{product_id}/favourite', [FavouriteController::class, 'store']);
-Route::delete('/products/{product}/favorite', [FavouriteController::class, 'destroy']);
+Route::post('favourites/{productId}', [FavouriteController::class, 'addTofav']);
+Route::delete('favourites/del', [FavouriteController::class, 'destroyFav']);
+Route::get('favourites/show', [FavouriteController::class, 'showFav']);
+Route::get('favourites/check', [FavouriteController::class, 'checkFav']);
+
+
+//Route::put('cart/{productId}/{i}', [CartController::class,'addToCart']);
+//Route::get('cart/{i}', [CartController::class,'showCart']);
+
+
+
 
 Route::post('/register',[\App\Http\Controllers\api\user\AuthController::class, 'register']);
 Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'login']);

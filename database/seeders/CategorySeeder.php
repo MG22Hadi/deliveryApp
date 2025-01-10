@@ -17,9 +17,9 @@ class CategorySeeder extends Seeder
     {
         $cats=[
             ['store_id'=>'1','name'=>'food'],
-            ['store_id'=>'1','name'=>'sweets'],
+            ['store_id'=>'1','name'=>'cleaners'],
             ['store_id'=>'2','name'=>'food'],
-            ['store_id'=>'2','name'=>'sweets'],
+            ['store_id'=>'2','name'=>'toys'],
             ['store_id'=>'3','name'=>'phones'],
             ['store_id'=>'3','name'=>'laptops'],
         ];
