@@ -17,6 +17,14 @@ class ProductSeeder extends Seeder
     {
         $products=[
 
+            ['category_id'=>'1','name'=>'Popcorn','description'=>'Ready-to-eat popcorn, various flavors available.','price'=>'50.0','image'=>'storage/images/products/food/corn.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'200'],
+            ['category_id'=>'1','name'=>'Cardamom Pods','description'=>'Aromatic and flavorful cardamom pods, perfect for cooking, baking, and beverages.','price'=>'25.0','image'=>'storage/images/products/food/cardamon.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
+            ['category_id'=>'1','name'=>'Kiri Cheese','description'=>'Creamy and smooth cheese, perfect for breakfast and snacks.','price'=>'20.0','image'=>'storage/images/products/food/kiri.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
+
+
+            ['category_id'=>'2','name'=>'Downy','description'=>'Fabric softener that provides long-lasting freshness and softness to clothes.','price'=>'25.5','image'=>'storage/images/products/cleaners/downy.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'1000'],
+            ['category_id'=>'2','name'=>'Ariel','description'=>'Powerful washing powder for automatic washing machines, removes tough stains effectively.','price'=>'30.2','image'=>'storage/images/products/cleaners/ariel.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'2500'],
+            ['category_id'=>'2','name'=>'Clorox','description'=>'Disinfectant cleaner that kills 99.9% of germs and bacteria on various surfaces.','price'=>'15.5','image'=>'storage/images/products/cleaners/clorox.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'750'],
 
 
 
@@ -27,7 +35,7 @@ class ProductSeeder extends Seeder
 
             ['category_id'=>'4','name'=>'Kids Bike','description'=>'A bicycle designed for young children learning to ride, includes training wheels for stability.','price'=>'150.00','image'=>'storage/images/products/toys/bike.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'10'],
             ['category_id'=>'4','name'=>'Car Toy','description'=>'A small, colorful plastic toy car suitable for young children.','price'=>'200.5','image'=>'storage/images/products/toys/car.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'7'],
-            ['category_id'=>'4','name'=>'Panda Plush Toy','description'=>'A soft and cuddly panda plush toy.','price'=>'50','image'=>'storage/images/products/toys/panda.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'100'],
+            ['category_id'=>'4','name'=>'Panda Toy','description'=>'A soft and cuddly panda plush toy.','price'=>'50','image'=>'storage/images/products/toys/panda.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'100'],
 
 
             /*
