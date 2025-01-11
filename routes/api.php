@@ -68,8 +68,6 @@ Route::get('favourites/check', [FavouriteController::class, 'checkFav']);
 //Route::get('cart/{i}', [CartController::class,'showCart']);
 
 
-
-
 Route::post('/register',[\App\Http\Controllers\api\user\AuthController::class, 'register']);
 Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'login']);
 Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'logout']) ;
@@ -80,3 +78,11 @@ Route::post('/refresh', [\App\Http\Controllers\api\user\AuthController::class, '
 Route::put('/updateUser', [\App\Http\Controllers\api\user\AuthController::class, 'updateUser']);
 
 Route::put('/change-password', [\App\Http\Controllers\api\user\AuthController::class, 'changePassword']);
+// cart
+Route::post('/cart/add/{productId}', [CartController::class, 'addToCart']);
+Route::get('/cart', [CartController::class, 'viewCart']);
+Route::put('/cart/update', [CartController::class, 'updateCart']);
+Route::delete('/cart/remove/{cartId}', [CartController::class, 'removeFromCart']);
+Route::get('/cart/totalPrice', [CartController::class, 'calculateTotalPrice']);
+
+Route::post('/order/checkout', [\App\Http\Controllers\OrderController::class, 'checkout']);

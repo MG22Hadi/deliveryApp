@@ -17,14 +17,6 @@ class ProductSeeder extends Seeder
     {
         $products=[
 
-            ['category_id'=>'1','name'=>'Popcorn','description'=>'Ready-to-eat popcorn, various flavors available.','price'=>'50.0','image'=>'storage/images/products/food/corn.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'200'],
-            ['category_id'=>'1','name'=>'Cardamom Pods','description'=>'Aromatic and flavorful cardamom pods, perfect for cooking, baking, and beverages.','price'=>'25.0','image'=>'storage/images/products/food/cardamon.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
-            ['category_id'=>'1','name'=>'Kiri Cheese','description'=>'Creamy and smooth cheese, perfect for breakfast and snacks.','price'=>'20.0','image'=>'storage/images/products/food/kiri.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
-
-
-            ['category_id'=>'2','name'=>'Downy','description'=>'Fabric softener that provides long-lasting freshness and softness to clothes.','price'=>'25.5','image'=>'storage/images/products/cleaners/downy.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'1000'],
-            ['category_id'=>'2','name'=>'Ariel Automatic Washing Powder','description'=>'Powerful washing powder for automatic washing machines, removes tough stains effectively.','price'=>'30.2','image'=>'storage/images/products/cleaners/ariel.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'2500'],
-            ['category_id'=>'2','name'=>'Clorox','description'=>'Disinfectant cleaner that kills 99.9% of germs and bacteria on various surfaces.','price'=>'15.5','image'=>'storage/images/products/cleaners/clorox.jpg','categoryName'=>'cleaners','storeName'=>'Al Amin','quantity'=>'750'],
 
 
 
