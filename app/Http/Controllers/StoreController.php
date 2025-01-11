@@ -20,7 +20,12 @@ class StoreController extends Controller
         if (!$store) {
             return response()->json(['message' => 'لا يوجد هكذا متجر لدينا'], 404);
         }
-        return response()->json($store);
+        $storeData = [
+            'store' => $store->only(['id', 'name', 'address', 'phone', 'logo', 'description', 'created_at', 'updated_at']), // نختار فقط الحقول المطلوبة من المتجر
+            'categories' => $store->categories // نضيف أقسام المتجر إلى المصفوفة
+        ];
+
+        return response()->json($storeData);
     }
 
     public function search($storename)
