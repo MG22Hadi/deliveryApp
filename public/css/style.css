@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+#ho{
+    overflow: hidden;
+
+}/*
+#mytable{
+  top: 150px;
+}*/
+body {
+    background-color: #342f3f;
+    font-family: 'Muli', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 0 0;
+    /*height: 100vh;*/
+
+}
+
+.text {
+    text-transform: uppercase;
+}
+
+.logo {
+    margin-top: 50px;
+    width: 210px;
+}
+
+.nav-btn {
+    border: none;
+    color: #fff;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.open-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 9999; /* إضافة z-index هنا */
+}
+
+.nav.visible {
+    transform: translateX(0);
+}
+
+.nav-black {
+    background-color: #570266;
+    width: 60%;
+    max-width: 340px;
+    min-width: 180px;
+    transition-delay: 0.4s;
+}
+
+.nav-black.visible {
+    transition-delay: 0s;
+}
+
+.nav-red {
+    background-color:  #6C55AF;
+    width: 95%;
+    transition-delay: 0.2s;
+}
+
+.nav-red.visible {
+    transition-delay: 0.2s;
+}
+
+.nav-white {
+    background-color: #1f1127;
+    width: 95%;
+    padding: 40px;
+    position: relative;
+    transition-delay: 0s;
+}
+
+.nav-white.visible {
+    transition-delay: 0.4s;
+}
+
+.close-btn {
+    color: #fff;
+    opacity: 0.3;
+    position: absolute;
+    top: 5px;
+    left: 230px;
+
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list li {
+    margin: 10px 0;
+}
+
+.list li a {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.list li.active a {
+    color: #d318f4;
+    font-weight: bold;
+}
+
+.list li a:active {
+    opacity: 0.8;
+}
+
+.list ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#mytitle{
+    color: #6C55AF;
+    font-size: 40px;
+    font-weight: bold;
+    font-style: italic;
+    /*bottom: 300px;*/
+}
+
+/*welcome*/
+.hero {/*
+  background-image: url('https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;*/
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: -2;
+}
+
+
+.hero h1 {
+    font-size: 56px;
+    margin: -20px 0 20px;
+}
+
+.hero p {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+/* table*/
+#t {
+    color: #de0afa;
+    /*color:#007bff; */
+    text-align: left;
+    font-style: italic;
+    font-size: 3em;
+    padding-bottom: 7px;
+}
+
+.table td .row {
+    margin-bottom: 5px; /* إضافة مسافة صغيرة بين المنتجات */
+}
+
+.table td .row:last-child {
+    margin-bottom: 0; /* إزالة المسافة من آخر منتج */
+}
+
+/* ترقيم الصفوف باستخدام counter */
+tbody tr {
+    counter-increment: row-num; /* زيادة العداد لكل صف */
+}
+
+tbody tr th:first-child::before { /* إضافة الرقم قبل محتوى الخلية الأولى (<th>) */
+    content: counter(row-num);
+}
+
+
+.table-bordered {
+    border: 1px solid #e181fa;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #b872c9;
+}
+
+.product-list {
+    margin-bottom: 0;
+    display: grid; /* استخدام grid لتوزيع العناصر بشكل أفضل */
+    grid-template-columns: 1fr 1fr; /* تقسيم إلى عمودين متساويين */
+    gap: 5px; /* مسافة بين العناصر */
+}
+
+.product-list dt, .product-list dd {
+    padding: 2px 5px; /* إضافة بعض الحشو */
+    margin: 0;
+    border: 1px solid #6c757d; /* إضافة حدود خفيفة */
+    border-radius: 4px;
+    text-align: right;
+    font-size: small;
+    background-color: #343a40; /* لون خلفية خفيفة */
+    color: white;
+}
+.product-list dt {
+    font-weight: bold;
+}
+.product-list dd {
+    text-align: left;
+}
+.orders-header {
+    display: flex; /* استخدام flexbox لتوزيع العناصر */
+    flex-direction: column; /* ترتيب العناصر عموديًا */
+    align-items: center; /* توسيط العناصر أفقيًا */
+}
+
+.product-quantity-labels {
+    font-size: 20px; /* تصغير حجم الخط (اختياري) */
+    margin-top: 5px; /* إضافة مسافة بين "الطلبات" و "اسم المنتج / الكمية" */
+}
+.product-quantity-labels span{
+    display: inline-block;
+    /*margin-right: 20px;
+    margin-left: 20px;*/
+}
+#s{
+    padding-left: 30px;
+    padding-right: 77px;
+}/*
+#s2{
+  padding-right: 20px;
+}*/
+/*button send*/
+
+button {
+    background-color: purple;
+    color: #fff;
+    border: 1px purple solid;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 30px;
+    overflow: hidden;
+    margin: 10px 0;
+    position: relative;
+    left: 25px;
+}
+
+button:focus {
+    outline: none;
+}
+
+button .circle {
+    position: absolute;
+    background-color: #fff;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: scale 0.5s ease-out;
+}
+
+@keyframes scale {
+    to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
+
+/*DRI*/
+/*.custom-card {
+    width: 200px;
+    height: 200px;
+}
+.card-img-custom{
+  height: 50px;
+  object-fit: cover;
+}
+.centered-row {
+  margin: 0 auto;
+}*/
+.card-img-custom {
+    height: 200px;
+    object-fit: cover;
+}
+.row {
+    margin: 0; /* إزالة الهوامش الافتراضية للصف */
+}
+.g-4,
+.gx-4 {
+    --bs-gutter-x: 0.5rem; /* تقليل المسافة الأفقية */
+}
+.card-title-custom {
+    font-size: 24px;
+    color: #d318f4;
+}
