@@ -314,3 +314,26 @@ button .circle {
     font-size: 24px;
     color: #d318f4;
 }
+
+/* تنسيق زر Logout */
+.logout-btn-container {
+    position: fixed; /* تثبيت الزر في مكانه */
+    bottom: 20px; /* المسافة من الأسفل */
+    right: 20px; /* المسافة من اليمين */
+    z-index: 1000; /* التأكد من ظهور الزر فوق العناصر الأخرى */
+}
+
+.logout-btn {
+    text-decoration: none; /* إزالة الخط الأفقي الافتراضي */
+    color: #d307f6; /* لون النص */
+    font-size: 14px; /* حجم الخط */
+    font-weight: bold; /* سمك الخط */
+    border-bottom: 2px solid #d307f6; /* خط تحت النص */
+    padding-bottom: 2px; /* مسافة بين النص والخط */
+    transition: color 0.3s, border-color 0.3s; /* تأثير تغيير اللون */
+}
+
+.logout-btn:hover {
+    color: purple; /* تغيير لون النص عند التمرير */
+    border-bottom-color: purple; /* تغيير لون الخط عند التمرير */
+}
