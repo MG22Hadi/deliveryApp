@@ -17,26 +17,20 @@ class ProductSeeder extends Seeder
     {
         $products=[
 
-            ['category_id'=>'1','name'=>'Popcorn','description'=>'Ready-to-eat popcorn, various flavors available.','price'=>'50.0','image'=>'/storage/app/public/images/products/food/corn.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'200'],
-            ['category_id'=>'1','name'=>'Cardamom Pods','description'=>'Aromatic and flavorful cardamom pods, perfect for cooking, baking, and beverages.','price'=>'25.0','image'=>'/storage/app/public/images/products/food/cardamon.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
-            ['category_id'=>'1','name'=>'Kiri Cheese','description'=>'Creamy and smooth cheese, perfect for breakfast and snacks.','price'=>'20.0','image'=>'/storage/app/public/images/products/food/kiri.jpg','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'500'],
 
 
 
-/*
-
-            ['category_id'=>'2','name'=>'cheese','description'=>'good cheese','price'=>'40','image'=>'//','categoryName'=>'food','storeName'=>'Al Amin','quantity'=>'30'],
-            ['category_id'=>'2','name'=>'chocolate','description'=>'good chocolate','price'=>'55','image'=>'//','categoryName'=>'sweets','storeName'=>'Al Amin','quantity'=>'50'],
-            ['category_id'=>'2','name'=>'halaoy','description'=>'good halaoy','price'=>'40','image'=>'//','categoryName'=>'sweets','storeName'=>'Al Amin','quantity'=>'30'],
+            ['category_id'=>'3','name'=>'Salt','description'=>'Essential seasoning for cooking and flavoring food.','price'=>'2.5','image'=>'storage/images/products/food/salt.jpg','categoryName'=>'food','storeName'=>'Noura','quantity'=>'1000'],
+            ['category_id'=>'3','name'=>'Garlic Powder','description'=>'Dried and ground garlic, used as a spice for flavoring food.','price'=>'8.11','image'=>'storage/images/products/food/garlic.jpg','categoryName'=>'food','storeName'=>'Noura','quantity'=>'250'],
+            ['category_id'=>'3','name'=>'Pasta','description'=>'Dried pasta made from durum wheat, various shapes and sizes available.','price'=>'10.5','image'=>'storage/images/products/food/pasta.jpg','categoryName'=>'food','storeName'=>'Noura','quantity'=>'500'],
 
 
+            ['category_id'=>'4','name'=>'Kids Bike','description'=>'A bicycle designed for young children learning to ride, includes training wheels for stability.','price'=>'150.00','image'=>'storage/images/products/toys/bike.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'10'],
+            ['category_id'=>'4','name'=>'Car Toy','description'=>'A small, colorful plastic toy car suitable for young children.','price'=>'200.5','image'=>'storage/images/products/toys/car.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'7'],
+            ['category_id'=>'4','name'=>'Panda Plush Toy','description'=>'A soft and cuddly panda plush toy.','price'=>'50','image'=>'storage/images/products/toys/panda.jpg','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'100'],
 
 
-            ['category_id'=>'3','name'=>'labneh','description'=>'good labneh','price'=>'55','image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'70'],
-            ['category_id'=>'3','name'=>'cheese','description'=>'good cheese','price'=>'40','image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'30'],
-            ['category_id'=>'4','name'=>'chocolate','description'=>'good chocolate','price'=>'55','image'=>'//','categoryName'=>'sweets','storeName'=>'Noura','quantity'=>'50'],
-            ['category_id'=>'4','name'=>'halaoy','description'=>'good halaoy','price'=>'40','image'=>'//','categoryName'=>'sweets','storeName'=>'Noura','quantity'=>'30'],
-
+            /*
 
 
 

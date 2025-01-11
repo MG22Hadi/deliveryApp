@@ -43,7 +43,7 @@ class ProfileController extends Controller
                 $image = $request->file('image');
                 $extension = $image->getClientOriginalExtension();
                 $imageName = $user->id . '.' . $extension;
-                $imagePath = 'profile_images/' . $imageName;
+                $imagePath = 'storage/profile_images/' . $imageName;
 
                 Storage::disk('public')->put($imagePath, file_get_contents($image));
 
