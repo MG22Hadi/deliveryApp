@@ -56,8 +56,6 @@ Route::get('/products/search/{productName}', [ProductController::class, 'search'
 // بحث عن متجر عن طريق اسمه     //
 Route::get('/stores/search/{storeName}', [StoreController::class, 'search']);
 
-Route::put('cart/{productId}/{i}', [CartController::class,'addToCart']);
-Route::get('cart/{i}', [CartController::class,'showCart']);
 Route::post('/products/{product}/favourite', [FavouriteController::class, 'store']);
 //Route::post('/products/{product_id}/favourite', [FavouriteController::class, 'store']);
 Route::delete('/products/{product}/favorite', [FavouriteController::class, 'destroy']);
@@ -72,3 +70,11 @@ Route::post('/refresh', [\App\Http\Controllers\api\user\AuthController::class, '
 Route::put('/updateUser', [\App\Http\Controllers\api\user\AuthController::class, 'updateUser']);
 
 Route::put('/change-password', [\App\Http\Controllers\api\user\AuthController::class, 'changePassword']);
+// cart
+Route::post('/cart/add/{productId}', [CartController::class, 'addToCart']);
+Route::get('/cart', [CartController::class, 'viewCart']);
+Route::put('/cart/update', [CartController::class, 'updateCart']);
+Route::delete('/cart/remove/{cartId}', [CartController::class, 'removeFromCart']);
+Route::get('/cart/totalPrice', [CartController::class, 'calculateTotalPrice']);
+
+Route::post('/order/checkout', [\App\Http\Controllers\OrderController::class, 'checkout']);
