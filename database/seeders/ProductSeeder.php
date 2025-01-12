@@ -45,7 +45,7 @@ class ProductSeeder extends Seeder
             ['category_id'=>'5','name'=>'Salt','description'=>'Essential seasoning for cooking and flavoring food.','price'=>'2.5','image'=>'storage/images/products/food/salt.jpg','Ad-image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'1000'],
             ['category_id'=>'5','name'=>'Garlic Powder','description'=>'Dried and ground garlic, used as a spice for flavoring food.','price'=>'8.11','image'=>'storage/images/products/food/garlic.jpg','Ad-image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'250'],
             ['category_id'=>'5','name'=>'Pasta','description'=>'Dried pasta made from durum wheat, various shapes and sizes available.','price'=>'10.5','image'=>'storage/images/products/food/pasta.jpg','Ad-image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'500'],
-
+            ['category_id'=>'5','name'=>'Oil','description'=>'High-quality cooking oil for frying, baking, and dressing.','price'=>'7.00','image'=>'storage/images/products/food/oil.jpg','Ad-image'=>'//','categoryName'=>'food','storeName'=>'Noura','quantity'=>'500'],
 
             ['category_id'=>'6','name'=>'Kids Bike','description'=>'A bicycle designed for young children learning to ride, includes training wheels for stability.','price'=>'150.00','image'=>'storage/images/products/toys/bike.jpg','Ad-image'=>'//','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'10'],
             ['category_id'=>'6','name'=>'Car Toy','description'=>'A small, colorful plastic toy car suitable for young children.','price'=>'200.5','image'=>'storage/images/products/toys/car.jpg','Ad-image'=>'//','categoryName'=>'toys','storeName'=>'Noura','quantity'=>'7'],

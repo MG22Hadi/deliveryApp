@@ -24,12 +24,12 @@ class ProfileController extends Controller
 
     public function uploadImage(Request $request)
     {
-         $user = $this->authService->getUser();
-
+        $user = $this->authService->getUser();
 
         if (!$user) {
             return response()->json(['message' => 'المستخدم غير موجود'], 404);
         }
+
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -38,16 +38,26 @@ class ProfileController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            if ($user->profile_image && file_exists(public_path($user->profile_image))) {
+                unlink(public_path($user->profile_image)); // حذف الصورة القديمة
+            }
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $extension = $image->getClientOriginalExtension();
-                $imageName = $user->id . '.' . $extension;
-                $imagePath = 'storage/profile_images/' . $imageName;
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $imageName = $user->id . '.' . $extension;
+            $imagePath = 'storage/profile_images/' . $imageName; // المسار داخل public/storage
 
-                Storage::disk('public')->put($imagePath, file_get_contents($image));
+            // إنشاء المجلد إذا لم يكن موجودًا
+            if (!file_exists(public_path('storage/profile_images'))) {
+                mkdir(public_path('storage/profile_images'), 0755, true);
+            }
 
-            $user->profile_image = $imagePath;
+            // حفظ الصورة في public/storage/profile_images
+            $image->move(public_path('storage/profile_images'), $imageName);
+
+            $user->profile_image = $imagePath; // حفظ المسار في قاعدة البيانات
             $user->save();
 
             return response()->json(['message' => 'تم رفع الصورة بنجاح', 'image_path' => $imagePath], 200);
