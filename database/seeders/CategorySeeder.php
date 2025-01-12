@@ -18,10 +18,17 @@ class CategorySeeder extends Seeder
         $cats=[
             ['store_id'=>'1','name'=>'food'],
             ['store_id'=>'1','name'=>'cleaners'],
+            ['store_id'=>'1','name'=>'toys'],
+            ['store_id'=>'1','name'=>'kitchen'],
+
+
             ['store_id'=>'2','name'=>'food'],
             ['store_id'=>'2','name'=>'toys'],
+            ['store_id'=>'2','name'=>'school'],
+
+/*
             ['store_id'=>'3','name'=>'phones'],
-            ['store_id'=>'3','name'=>'laptops'],
+            ['store_id'=>'3','name'=>'laptops'],*/
         ];
 
         foreach ($cats as $cat){
