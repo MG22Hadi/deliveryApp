@@ -38,6 +38,41 @@ trait GeneralTrait
             $key => $value
         ]);
     }
+        /*
+    * إرجاع بيانات مع رسالة نجاح وبيانات إضافية.
+     *
+     * @param string $key مفتاح البيانات الرئيسي
+     * @param mixed $data البيانات الرئيسية
+     * @param string $msg رسالة النجاح
+     * @param array $extraData البيانات الإضافية (اختياري)
+     * @return JsonResponse
+     */
+    public function returnDataSP($key, $data, $msg, $extraData = [])
+    {
+        $response = [
+            'status' => true,
+            'errNum' => 'S000',
+            'msg' => $msg,
+            $key => $data,
+        ];
+
+        // إضافة البيانات الإضافية إذا كانت موجودة
+        if (!empty($extraData)) {
+            $response['errors'] = $extraData;
+        }
+
+        return response()->json($response);
+    }
+
+    public function returnErrorWithData($errNum, $msg, $data = [])
+    {
+        return response()->json([
+            'status' => false,
+            'errNum' => $errNum,
+            'msg' => $msg,
+            'errors' => $data, // إضافة البيانات الإضافية
+        ]);
+    }
 
 
     //////////////////

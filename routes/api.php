@@ -4,6 +4,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
@@ -68,8 +69,6 @@ Route::get('favourites/check', [FavouriteController::class, 'checkFav']);
 //Route::get('cart/{i}', [CartController::class,'showCart']);
 
 
-
-
 Route::post('/register',[\App\Http\Controllers\api\user\AuthController::class, 'register']);
 Route::post('/login',[\App\Http\Controllers\api\user\AuthController::class, 'login']);
 Route::post('/logout',[\App\Http\Controllers\api\user\AuthController::class, 'logout']) ;
@@ -80,3 +79,18 @@ Route::post('/refresh', [\App\Http\Controllers\api\user\AuthController::class, '
 Route::put('/updateUser', [\App\Http\Controllers\api\user\AuthController::class, 'updateUser']);
 
 Route::put('/change-password', [\App\Http\Controllers\api\user\AuthController::class, 'changePassword']);
+// cart
+Route::post('/cart/add/{productId}', [CartController::class, 'addToCart']);
+Route::get('/cart', [CartController::class, 'viewCart']);
+Route::put('/cart/update', [CartController::class, 'updateCart']);
+Route::delete('/cart/remove/{cartId}', [CartController::class, 'removeFromCart']);
+Route::get('/cart/totalPrice', [CartController::class, 'calculateTotalPrice']);
+
+Route::post('/order/checkout', [OrderController::class, 'checkout']);
+
+Route::get('/orders', [OrderController::class, 'getOrders']);
+// إعادة الطلب إلى واجهة السلة للتعديل
+Route::get('/orders/{orderId}/edit', [OrderController::class, 'editOrder']);
+// حفظ التعديلات على الطلب
+Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
+Route::put('/orders/{orderId}/status', [OrderController::class, 'changeOrderStatus']);
