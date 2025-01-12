@@ -77,7 +77,7 @@ class ProfileController extends Controller
                 $userData['profile_image_url'] = Storage::url($user->profile_image);
             }
         } else {               // مسار لصورة افتراضية إذا ما بدي بس بحط نل وهنن يصطفلو
-            $userData['profile_image_url'] = asset('/storage/profile_images/default.jpg');
+            $userData['profile_image_url'] = asset('storage/profile_images/default.jpg');
         }
 
         return response()->json($userData, 200);
