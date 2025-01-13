@@ -131,7 +131,7 @@ public function checkout()
     }
 }
 
-    public function updateOrder(Request $request, $orderId)
+public function updateOrder(Request $request, $orderId)
 {
     try {
         // التحقق من صحة الـ Token والحصول على المستخدم
@@ -155,18 +155,51 @@ public function checkout()
             return $this->returnError('E403', 'Order cannot be edited');
         }
 
-        // حساب السعر الإجمالي تلقائيًا
-            $items = $request->items;
-            $totalAmount = 0;
+        // فك تشفير العناصر الحالية في الطلب
+        $currentItems = json_decode($order->items, true);
 
-            foreach ($items as $item) {
-                $totalAmount += $item['quantity'] * $item['price'];
+        // العناصر الجديدة المرسلة في الطلب
+        $newItems = $request->items;
+
+        // تحديث كمية المنتجات في المخزون بناءً على التغييرات
+        foreach ($newItems as $newItem) {
+            // البحث عن العنصر الحالي في الطلب
+            $currentItem = collect($currentItems)->firstWhere('product_id', $newItem['product_id']);
+
+            if ($currentItem) {
+                // حساب الفرق بين الكمية الجديدة والكمية الحالية
+                $quantityDifference = $newItem['quantity'] - $currentItem['quantity'];
+
+                // البحث عن المنتج في قاعدة البيانات
+                $product = Product::find($newItem['product_id']);
+
+                if ($product) {
+                    // إذا كانت الكمية الجديدة أكبر من الكمية الحالية
+                    if ($quantityDifference > 0) {
+                        // التحقق من أن الكمية الإضافية متاحة في المخزون
+                        if ($product->quantity < $quantityDifference) {
+                            return $this->returnError('E400', 'Not enough stock for product: ' . $product->name);
+                        }
+
+                        // خصم الكمية الإضافية من المخزون
+                        $product->quantity -= $quantityDifference;
+                    } else {
+                        // إضافة الكمية المخصومة إلى المخزون
+                        $product->quantity += abs($quantityDifference);
+                    }
+
+                    // حفظ التغييرات في المنتج
+                    $product->save();
+                }
             }
+        }
 
-            // تحديث تفاصيل الطلب
-            $order->items = json_encode($items); // تحديث العناصر
-            $order->total_amount = $totalAmount; // تحديث السعر الإجمالي تلقائيًا
-            $order->save();
+        // تحديث تفاصيل الطلب
+        $order->items = json_encode($newItems); // تحديث العناصر
+        $order->total_amount = array_reduce($newItems, function ($total, $item) {
+            return $total + ($item['quantity'] * $item['price']);
+        }, 0); // تحديث السعر الإجمالي تلقائيًا
+        $order->save();
 
         // إرجاع تفاصيل الطلب المعدل
         return $this->returnData('order', $order, 'Order updated successfully');
