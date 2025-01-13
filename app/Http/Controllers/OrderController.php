@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -203,6 +204,54 @@ public function updateOrder(Request $request, $orderId)
 
         // إرجاع تفاصيل الطلب المعدل
         return $this->returnData('order', $order, 'Order updated successfully');
+    } catch (\Exception $ex) {
+        return $this->returnError($ex->getCode(), $ex->getMessage());
+    }
+}
+
+    public function cancelOrder($orderId)
+{
+    try {
+        // التحقق من صحة الـ Token والحصول على المستخدم
+        $user = JWTAuth::parseToken()->authenticate();
+
+        // إذا لم يتم العثور على المستخدم
+        if (!$user) {
+            return $this->returnError('E401', 'Unauthorized');
+        }
+
+        // استرجاع الطلب
+        $order = Order::where('id', $orderId)->where('user_id', $user->id)->first();
+
+        // إذا لم يتم العثور على الطلب
+        if (!$order) {
+            return $this->returnError('E404', 'Order not found');
+        }
+
+        // التحقق من حالة الطلب
+        if ($order->status != 'pending') {
+            return $this->returnError('E403', 'Order cannot be canceled');
+        }
+
+        // فك تشفير العناصر في الطلب
+        $items = json_decode($order->items, true);
+
+        // إعادة كمية المنتجات إلى المخزون
+        foreach ($items as $item) {
+            $product = Product::find($item['product_id']);
+
+            if ($product) {
+                $product->quantity += $item['quantity']; // إضافة الكمية إلى المخزون
+                $product->save();
+            }
+        }
+
+        // تغيير حالة الطلب إلى "ملغى"
+        $order->status = 'canceled';
+        $order->save();
+
+        // إرجاع رسالة نجاح
+        return $this->returnSuccessMessage('Order canceled successfully');
     } catch (\Exception $ex) {
         return $this->returnError($ex->getCode(), $ex->getMessage());
     }

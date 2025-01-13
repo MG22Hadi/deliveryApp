@@ -99,3 +99,4 @@ Route::get('/orders/{orderId}/edit', [OrderController::class, 'editOrder']);
 // حفظ التعديلات على الطلب
 Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
 Route::put('/orders/{orderId}/status', [OrderController::class, 'changeOrderStatus']);
+Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
