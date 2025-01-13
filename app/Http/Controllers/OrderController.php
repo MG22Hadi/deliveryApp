@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
      use GeneralTrait; // استخدام الـ Trait
 
-    public function checkout()
+public function checkout()
 {
     try {
         // التحقق من صحة الـ Token والحصول على المستخدم
@@ -23,7 +23,7 @@ class OrderController extends Controller
             return $this->returnError('E401', 'Unauthorized');
         }
 
-        // استرجاع عناصر السلة الخاصة بالمستخدم
+        // استرجاع عناصر السلة الخاصة بالمستخدم مع تفاصيل المنتجات
         $cartItems = Cart::where('user_id', $user->id)->with('product')->get();
 
         // إذا كانت السلة فارغة
@@ -36,6 +36,11 @@ class OrderController extends Controller
         $totalAmount = 0;
 
         foreach ($cartItems as $item) {
+            // التحقق من أن الكمية المطلوبة متاحة في المخزون
+            if ($item->product->quantity < $item->quantity) {
+                return $this->returnError('E400', 'Not enough stock for product: ' . $item->product->name);
+            }
+
             $items[] = [
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
@@ -44,6 +49,10 @@ class OrderController extends Controller
 
             // حساب السعر الإجمالي
             $totalAmount += $item->quantity * $item->product->price;
+
+            // تقليل كمية المنتج في المخزون
+            $item->product->quantity -= $item->quantity;
+            $item->product->save();
         }
 
         // إنشاء الطلب
@@ -63,6 +72,8 @@ class OrderController extends Controller
         return $this->returnError($ex->getCode(), $ex->getMessage());
     }
 }
+
+
     public function getOrders()
     {
         try {
