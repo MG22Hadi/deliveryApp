@@ -14,43 +14,48 @@ class CartController extends Controller
     use GeneralTrait;
 
     // إضافة منتج إلى السلة
-    public function addToCart(Request $request, $productId)
-    {
-        try {
-            // التحقق من صحة الـ Token والحصول على المستخدم
-            $user = JWTAuth::parseToken()->authenticate();
+public function addToCart(Request $request, $productId)
+{
+    try {
+        // التحقق من صحة الـ Token والحصول على المستخدم
+        $user = JWTAuth::parseToken()->authenticate();
 
-            // إذا لم يتم العثور على المستخدم
-            if (!$user) {
-                return $this->returnError('E401', 'Unauthorized');
-            }
-
-            // البحث عن المنتج
-            $product = Product::find($productId);
-
-            // إذا لم يتم العثور على المنتج
-            if (!$product) {
-                return $this->returnError('E404', 'Product not found');
-            }
-
-            // إضافة المنتج إلى السلة مع توفير قيمة لحقل `price`
-            $cart = Cart::firstOrCreate([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-            ], [
-                'quantity' => 1,
-                'price' => $product->price, // إضافة سعر المنتج
-            ]);
-
-            if (!$cart->wasRecentlyCreated) {
-                $cart->increment('quantity');
-            }
-
-            return $this->returnSuccessMessage('Product added to cart successfully');
-        } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+        // إذا لم يتم العثور على المستخدم
+        if (!$user) {
+            return $this->returnError('E401', 'Unauthorized');
         }
+
+        // البحث عن المنتج
+        $product = Product::find($productId);
+
+        // إذا لم يتم العثور على المنتج
+        if (!$product) {
+            return $this->returnError('E404', 'Product not found');
+        }
+
+        // التحقق مما إذا كان المنتج موجودًا بالفعل في سلة المستخدم
+        $existingCartItem = Cart::where('user_id', $user->id)
+                                ->where('product_id', $product->id)
+                                ->first();
+
+        // إذا كان المنتج موجودًا بالفعل في السلة
+        if ($existingCartItem) {
+            return $this->returnError('E400', 'Product already exists in the cart');
+        }
+
+        // إضافة المنتج إلى السلة
+        Cart::create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
+            'price' => $product->price, // إضافة سعر المنتج
+        ]);
+
+        return $this->returnSuccessMessage('Product added to cart successfully');
+    } catch (\Exception $ex) {
+        return $this->returnError($ex->getCode(), $ex->getMessage());
     }
+}
 
     public function viewCart()
     {
@@ -75,76 +80,150 @@ class CartController extends Controller
         }
     }
 
-    public function updateCart(Request $request)
+//    public function updateCart(Request $request)
+//    {
+//        try {
+//            // التحقق من صحة الـ Token والحصول على المستخدم
+//            $user = JWTAuth::parseToken()->authenticate();
+//
+//            // إذا لم يتم العثور على المستخدم
+//            if (!$user) {
+//                return $this->returnError('E401', 'Unauthorized');
+//            }
+//
+//            // التحقق من صحة البيانات المرسلة
+//            $validator = Validator::make($request->all(), [
+//                'items' => 'required|array', // يجب أن تكون البيانات عبارة عن مصفوفة
+//                'items.*.cart_id' => 'required|integer|exists:carts,id', // كل عنصر يجب أن يحتوي على cart_id صحيح
+//                'items.*.quantity' => 'required|integer|min:1', // الكمية يجب أن تكون عددًا صحيحًا أكبر من أو يساوي 1
+//            ]);
+//
+//            // إذا فشل التحقق من الصحة
+//            if ($validator->fails()) {
+//                return $this->returnValidationError($this->returnCodeAccordingToInput($validator), $validator);
+//            }
+//
+//            $updatedItems = []; // لتخزين العناصر التي تم تحديثها
+//            $errors = []; // لتخزين الأخطاء
+//
+//            // تحديث جميع العناصر في السلة
+//            foreach ($request->items as $item) {
+//                // البحث عن العنصر في السلة
+//                $cartItem = Cart::where('id', $item['cart_id'])
+//                    ->where('user_id', $user->id) // التأكد من أن العنصر ينتمي إلى المستخدم الحالي
+//                    ->with('product') // تحميل بيانات المنتج المرتبط
+//                    ->first();
+//
+//                // إذا تم العثور على العنصر
+//                if ($cartItem) {
+//                    // التحقق من أن الكمية المطلوبة لا تتجاوز الكمية المتاحة
+//                    if ($item['quantity'] <= $cartItem->product->quantity) {
+//                        $cartItem->update([
+//                            'quantity' => $item['quantity'],
+//                        ]);
+//                        $updatedItems[] = $cartItem->id; // إضافة معرف العنصرالذي تم تحديثه
+//                    } else {
+//                        // إضافة خطأ للعنصر الذي تتجاوز كمية الطلب فيه الكمية المتاحة
+//                        $errors[] = [
+//                            'cart_id' => $item['cart_id'],
+//                            'product_name' => $cartItem->product->name,
+//                            'message' => 'The requested quantity (' . $item['quantity'] . ') exceeds the available stock (' . $cartItem->product->quantity . ') for product ' . $cartItem->product->name,
+//                        ];
+//                    }
+//                }
+//            }
+//
+//            // إذا لم يتم تحديث أي عنصر
+//            if (empty($updatedItems) && !empty($errors)) {
+//                return $this->returnErrorWithData('E400', 'No items were updated due to insufficient stock', $errors);
+//            }
+//
+//            // إذا تم تحديث بعض العناصر ولكن كانت هناك أخطاء
+//            if (!empty($errors)) {
+//                return $this->returnDataSp('updated_items', $updatedItems, 'Some items were updated, but there were errors', $errors);
+//            }
+//
+//            // إذا تم تحديث جميع العناصر بنجاح
+//            return $this->returnData('updated_items', $updatedItems, 'Cart updated successfully');
+//        } catch (\Exception $ex) {
+//            return $this->returnError($ex->getCode(), $ex->getMessage());
+//        }
+//    }
+
+    public function increaseCartItem($cartItemId): \Illuminate\Http\JsonResponse
     {
-        try {
-            // التحقق من صحة الـ Token والحصول على المستخدم
-            $user = JWTAuth::parseToken()->authenticate();
+    try {
+        // التحقق من صحة الـ Token والحصول على المستخدم
+        $user = JWTAuth::parseToken()->authenticate();
 
-            // إذا لم يتم العثور على المستخدم
-            if (!$user) {
-                return $this->returnError('E401', 'Unauthorized');
-            }
-
-            // التحقق من صحة البيانات المرسلة
-            $validator = Validator::make($request->all(), [
-                'items' => 'required|array', // يجب أن تكون البيانات عبارة عن مصفوفة
-                'items.*.cart_id' => 'required|integer|exists:carts,id', // كل عنصر يجب أن يحتوي على cart_id صحيح
-                'items.*.quantity' => 'required|integer|min:1', // الكمية يجب أن تكون عددًا صحيحًا أكبر من أو يساوي 1
-            ]);
-
-            // إذا فشل التحقق من الصحة
-            if ($validator->fails()) {
-                return $this->returnValidationError($this->returnCodeAccordingToInput($validator), $validator);
-            }
-
-            $updatedItems = []; // لتخزين العناصر التي تم تحديثها
-            $errors = []; // لتخزين الأخطاء
-
-            // تحديث جميع العناصر في السلة
-            foreach ($request->items as $item) {
-                // البحث عن العنصر في السلة
-                $cartItem = Cart::where('id', $item['cart_id'])
-                    ->where('user_id', $user->id) // التأكد من أن العنصر ينتمي إلى المستخدم الحالي
-                    ->with('product') // تحميل بيانات المنتج المرتبط
-                    ->first();
-
-                // إذا تم العثور على العنصر
-                if ($cartItem) {
-                    // التحقق من أن الكمية المطلوبة لا تتجاوز الكمية المتاحة
-                    if ($item['quantity'] <= $cartItem->product->quantity) {
-                        $cartItem->update([
-                            'quantity' => $item['quantity'],
-                        ]);
-                        $updatedItems[] = $cartItem->id; // إضافة معرف العنصرالذي تم تحديثه
-                    } else {
-                        // إضافة خطأ للعنصر الذي تتجاوز كمية الطلب فيه الكمية المتاحة
-                        $errors[] = [
-                            'cart_id' => $item['cart_id'],
-                            'product_name' => $cartItem->product->name,
-                            'message' => 'The requested quantity (' . $item['quantity'] . ') exceeds the available stock (' . $cartItem->product->quantity . ') for product ' . $cartItem->product->name,
-                        ];
-                    }
-                }
-            }
-
-            // إذا لم يتم تحديث أي عنصر
-            if (empty($updatedItems) && !empty($errors)) {
-                return $this->returnErrorWithData('E400', 'No items were updated due to insufficient stock', $errors);
-            }
-
-            // إذا تم تحديث بعض العناصر ولكن كانت هناك أخطاء
-            if (!empty($errors)) {
-                return $this->returnDataSp('updated_items', $updatedItems, 'Some items were updated, but there were errors', $errors);
-            }
-
-            // إذا تم تحديث جميع العناصر بنجاح
-            return $this->returnData('updated_items', $updatedItems, 'Cart updated successfully');
-        } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+        // إذا لم يتم العثور على المستخدم
+        if (!$user) {
+            return $this->returnError('E401', 'Unauthorized');
         }
-    }
 
+        // البحث عن عنصر السلة
+        $cartItem = Cart::where('id', $cartItemId)
+                        ->where('user_id', $user->id)
+                        ->with('product') // تحميل العلاقة مع المنتج
+                        ->first();
+
+        // إذا لم يتم العثور على عنصر السلة
+        if (!$cartItem) {
+            return $this->returnError('E404', 'Cart item not found');
+        }
+
+        // التحقق من أن الكمية في السلة لا تتجاوز الكمية المتاحة للمنتج
+        if ($cartItem->quantity >= $cartItem->product->quantity) {
+            return $this->returnError('E400', 'Cannot add more than available quantity');
+        }
+
+        // زيادة الكمية بمقدار 1
+        $cartItem->quantity += 1;
+        $cartItem->save();
+
+        // إرجاع تفاصيل عنصر السلة بعد التحديث
+        return $this->returnSuccessMessage('Quantity increased successfully');
+    } catch (\Exception $ex) {
+        return $this->returnError($ex->getCode(), $ex->getMessage());
+    }
+}
+
+    public function decreaseCartItem($cartItemId)
+{
+    try {
+        // التحقق من صحة الـ Token والحصول على المستخدم
+        $user = JWTAuth::parseToken()->authenticate();
+
+        // إذا لم يتم العثور على المستخدم
+        if (!$user) {
+            return $this->returnError('E401', 'Unauthorized');
+        }
+
+        // البحث عن عنصر السلة
+        $cartItem = Cart::where('id', $cartItemId)
+                        ->where('user_id', $user->id)
+                        ->first();
+
+        // إذا لم يتم العثور على عنصر السلة
+        if (!$cartItem) {
+            return $this->returnError('E404', 'Cart item not found');
+        }
+
+        // التحقق من أن الكمية لا تقل عن 1
+        if ($cartItem->quantity <= 1) {
+            return $this->returnError('E400', 'Quantity cannot be less than 1');
+        }
+
+        // تقليل الكمية بمقدار 1
+        $cartItem->quantity -= 1;
+        $cartItem->save();
+
+        // إرجاع تفاصيل عنصر السلة بعد التحديث
+        return $this->returnSuccessMessage('Quantity decreased successfully');
+    } catch (\Exception $ex) {
+        return $this->returnError($ex->getCode(), $ex->getMessage());
+    }
+}
     public function removeFromCart($cartId)
     {
         try {

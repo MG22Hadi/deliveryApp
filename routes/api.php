@@ -82,8 +82,13 @@ Route::put('/change-password', [\App\Http\Controllers\api\user\AuthController::c
 // cart
 Route::post('/cart/add/{productId}', [CartController::class, 'addToCart']);
 Route::get('/cart', [CartController::class, 'viewCart']);
-Route::put('/cart/update', [CartController::class, 'updateCart']);
+
+//Route::put('/cart/update', [CartController::class, 'updateCart']);
+Route::post('/cart/increase/{cartItemId}', [CartController::class, 'increaseCartItem']);
+Route::post('/cart/decrease/{cartItemId}', [CartController::class, 'decreaseCartItem']);
+
 Route::delete('/cart/remove/{cartId}', [CartController::class, 'removeFromCart']);
+
 Route::get('/cart/totalPrice', [CartController::class, 'calculateTotalPrice']);
 
 Route::post('/order/checkout', [OrderController::class, 'checkout']);
