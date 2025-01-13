@@ -1,4 +1,24 @@
-//
+// JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // الحصول على اسم الـ route الحالي
+    const currentRoute = "{{ Route::currentRouteName() }}";
+
+    // تحديد جميع روابط التنقل
+    const navLinks = document.querySelectorAll('.list li a');
+
+    navLinks.forEach(link => {
+        // التحقق مما إذا كان الرابط يشير إلى الصفحة الحالية
+        if (link.getAttribute('href') === "{{ route('home') }}" && currentRoute === 'home') {
+            link.classList.add('active');
+        } else if (link.getAttribute('href') === "{{ route('orders') }}" && currentRoute === 'orders') {
+            link.classList.add('active');
+        } else if (link.getAttribute('href') === "{{ route('drivers') }}" && currentRoute === 'drivers') {
+            link.classList.add('active');
+        }
+    });
+});
+
+//////
 const open_btn = document.querySelector('.open-btn')
 const close_btn = document.querySelector('.close-btn')
 const nav = document.querySelectorAll('.nav')
@@ -38,23 +58,4 @@ buttons.forEach(button => {
 
 
 
-// JavaScript
-/*
-document.addEventListener('DOMContentLoaded', function() {
-    // الحصول على المسار الحالي
-    const currentPath = "{{ Request::path() }}";
 
-    // تحديد جميع روابط التنقل
-    const navLinks = document.querySelectorAll('.list li a');
-
-    navLinks.forEach(link => {
-        // التحقق مما إذا كان الرابط يشير إلى الصفحة الحالية
-        if (link.getAttribute('href') === "{{ url('/') }}" && currentPath === '/') {
-            link.classList.add('active');
-        } else if (link.getAttribute('href') === "{{ url('/orders') }}" && currentPath === 'orders') {
-            link.classList.add('active');
-        } else if (link.getAttribute('href') === "{{ url('/drivers') }}" && currentPath === 'drivers') {
-            link.classList.add('active');
-        }
-    });
-});*/
