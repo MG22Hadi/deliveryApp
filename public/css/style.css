@@ -342,7 +342,7 @@ button .circle {
 }
 
 
-/** add*******/
+/** add*****************************************************************************/
 /* توسيط الصفحة */
 .centered-container {
     display: flex;
@@ -474,4 +474,30 @@ button .circle {
     height: 50px;
     left: 120px;
     /*margin-top: -5px;*/
+}
+#address_label, #phone_label, #logo_label {
+    font-size: 1.2rem;
+    color: #d95bd9;
+    font-weight: bold;
+}
+.custom-popup {
+    width: 300px; /* تصغير عرض النافذة */
+    font-size: 16px; /* تصغير حجم الخط العام */
+}
+
+.custom-title {
+    font-size: 20px; /* تصغير حجم العنوان */
+}
+
+.custom-text {
+    font-size: 16px; /* تصغير حجم النص */
+}
+
+.custom-button {
+    font-size: 16px; /* تصغير حجم الزر */
+    padding: 5px 10px; /* تصغير حجم الزر */
+    background-color: #6C55AF;
+    width: 125px;
+    /*right: 10px;*/
+    margin-right: 38px;
 }

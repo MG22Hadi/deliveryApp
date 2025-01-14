@@ -32,7 +32,8 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('orders') }}">Orders</a></li>
                 <li><a href="{{ route('drivers') }}">Drivers</a></li>
-                <li><a href="{{ route('add-product') }}">Add</a></li>
+                <li><a href="{{ route('add-product') }}">Add Product</a></li>
+                <li><a href="{{ route('add-store') }}">Add Store</a></li>
             </ul>
         </div>
     </div>
