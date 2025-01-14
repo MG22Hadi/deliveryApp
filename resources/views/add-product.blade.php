@@ -21,7 +21,7 @@
                 <i class="fas fa-times"></i>
             </button>
 
-            <img src="{{ asset('webImages/logo2.jpg') }}" alt="Logo" class="logo">
+            <img src="{{ asset('webImages/logo2.png') }}" alt="Logo" class="logo">
             <p class="text" id="mytitle">Beeb Beeb</p>
 
             <ul class="list">
