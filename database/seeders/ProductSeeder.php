@@ -59,17 +59,18 @@ class ProductSeeder extends Seeder
             ['category_id'=>'7','name'=>'Notebooks','description'=>'Compact and lightweight notebooks for easy carrying and use.','price'=>'3.75','image'=>'storage/images/products/school/notebooks5.jpg','Ad-image'=>'//','categoryName'=>'school','storeName'=>'Noura','quantity'=>'180'],
 
 
-            /*
+            ['category_id' =>'8','name' => 'Ground Cinnamon', 'description' => 'Finely ground cinnamon powder, perfect for adding warmth and flavor to desserts, beverages, and dishes.', 'price' => '4.0', 'image' => 'storage/images/products/food/Cinnamon.jpg','Ad-image' => '//','categoryName' => 'food','storeName' => 'Al hadi','quantity' => '1000'],
+            ['category_id' =>'8','name' => 'Coarse Cinnamon', 'description' => 'Coarse cinnamon sticks, ideal for infusing flavor into teas, stews, and traditional dishes.', 'price' => '4.5', 'image' => 'storage/images/products/food/cinnamon2.jpg','Ad-image' => '//','categoryName' => 'food','storeName' => 'Al hadi','quantity' => '800'],
+            ['category_id' =>'8','name' => 'Curry Powder', 'description' => 'A blend of aromatic spices, perfect for adding rich flavor to curries, soups, and marinades.', 'price' => '5.0', 'image' => 'storage/images/products/food/curry_powder.jpg','Ad-image' => '//','categoryName' => 'food','storeName' => 'Al hadi','quantity' => '750'],
+            ['category_id' =>'8','name' => 'Shawarma Spices', 'description' => 'A special blend of spices used to flavor shawarma, giving it a rich and authentic taste.', 'price' => '6.0', 'image' => 'storage/images/products/food/shawarma_spices.jpg','Ad-image' => '//','categoryName' => 'food','storeName' => 'Al hadi','quantity' => '600'],
 
 
+            ['category_id' =>'9','name' => 'Cif Cleaner', 'description' => 'Powerful bathroom cleaner that removes tough stains and leaves surfaces sparkling clean.', 'price' => '8.0', 'image' => 'storage/images/products/cleaners/cif_cleaner.jpg','Ad-image' => '//','categoryName' => 'cleaners','storeName' => 'Al hadi','quantity' => '450'],
+            ['category_id' =>'9','name' => 'Musculo Cleaner', 'description' => 'Effective bathroom cleaner that eliminates tough stains, dirt, and grime, leaving your bathroom fresh and clean.', 'price' => '7.5', 'image' => 'storage/images/products/cleaners/mr.jpg','Ad-image' => '//','categoryName' => 'cleaners','storeName' => 'Al hadi','quantity' => '500'],
+            ['category_id' =>'9','name' => 'Cleaning Set', 'description' => 'A complete set of cleaning products for all your household needs, including kitchen, bathroom, and floor cleaners.', 'price' => '25.0', 'image' => 'storage/images/products/cleaners/cleaning_set.jpg','Ad-image' => '//','categoryName' => 'cleaners','storeName' => 'Al hadi','quantity' => '200'],
+            ['category_id' =>'9','name' => 'Spray Cleaner', 'description' => 'Versatile spray cleaner for quick and effective cleaning of various surfaces.', 'price' => '5.5', 'image' => 'storage/images/products/cleaners/spray.jpg','Ad-image' => '//','categoryName' => 'cleaners','storeName' => 'Al hadi','quantity' => '300'],
 
-            ['category_id'=>'5','name'=>'A30','description'=>'good phone','price'=>'55','image'=>'//','categoryName'=>'phones','storeName'=>'Al hadi','quantity'=>'150'],
-            ['category_id'=>'5','name'=>'A50','description'=>'good phone','price'=>'40','image'=>'//','categoryName'=>'phones','storeName'=>'Al hadi','quantity'=>'33'],
-            ['category_id'=>'6','name'=>'lenovo','description'=>'good lap','price'=>'55','image'=>'//','categoryName'=>'laptops','storeName'=>'Al hadi','quantity'=>'50'],
-            ['category_id'=>'6','name'=>'dell','description'=>'laptop','price'=>'40','image'=>'//','categoryName'=>'laptops','storeName'=>'Al hadi','quantity'=>'30'],
 
-
-*/
 
         ];
 

@@ -34,6 +34,10 @@ Route::get('/drivers', function () {
     return view('drivers');
 })->name('drivers');
 
+Route::get('/add-product', function () {
+    return view('add-product');
+})->name('add-product');
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');

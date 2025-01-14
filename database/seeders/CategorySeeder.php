@@ -26,9 +26,9 @@ class CategorySeeder extends Seeder
             ['store_id'=>'2','name'=>'toys'],
             ['store_id'=>'2','name'=>'school'],
 
-/*
-            ['store_id'=>'3','name'=>'phones'],
-            ['store_id'=>'3','name'=>'laptops'],*/
+
+            ['store_id'=>'3','name'=>'food'],
+            ['store_id'=>'3','name'=>'cleaners'],
         ];
 
         foreach ($cats as $cat){
