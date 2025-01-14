@@ -71,17 +71,22 @@ class FavouriteController extends Controller
         return response()->json(['message' => 'Product removed from favourites'], 200);
     }
     public function showFav()
-    {
-        // الحصول على المستخدم الحالي من التوكن
-        $user = $this->authService->getUser();
+{
+    // الحصول على المستخدم الحالي من التوكن
+    $user = $this->authService->getUser();
 
-        // جلب المنتجات المفضلة مع تفاصيل المنتج
-        $favourites = Favourite::with('product')
-            ->where('user_id', $user->id)
-            ->get();
+    // جلب المنتجات المفضلة مع تفاصيل المنتج
+    $favourites = Favourite::with('product')
+        ->where('user_id', $user->id)
+        ->get();
 
-        return response()->json(['data' => $favourites], 200);
+    // التحقق من وجود منتجات مفضلة
+    if ($favourites->isEmpty()) {
+        return $this->returnError('E100', 'No favourite products found.');
+    } else {
+        return $this->returnData('favourites', $favourites, 'Favourite products retrieved successfully.');
     }
+}
 
     public function checkFav(Request $request)
     {
