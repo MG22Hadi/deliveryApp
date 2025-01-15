@@ -15,7 +15,8 @@ class Order extends Model
         'total_amount',
         'status',
         'order_time',
-        'order_date'
+        'order_date',
+        'driver_id'
     ];
 
     // العلاقة مع المستخدم
