@@ -62,6 +62,9 @@ public function checkout()
             'items' => json_encode($items), // تخزين items كمصفوفة JSON
             'total_amount' => $totalAmount,
             'status' => 'pending', // الحالة الافتراضية للطلب
+            'order_date' => now()->addHours(3)->format('Y-m-d'), // التاريخ الحالي
+            'order_time' => now()->addHours(3)->format('H:i:s'),// الوقت الحالي
+
         ]);
 
         // تفريغ السلة بعد إنشاء الطلب

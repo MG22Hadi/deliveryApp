@@ -20,13 +20,10 @@ public function up()
             $table->json('items'); // مصفوفة محتويات الطلب (تفاصيل المنتجات والكميات)
             $table->decimal('total_amount', 10, 2); // السعر الإجمالي للطلب
             $table->string('status')->default('pending'); // حالة الطلب (معلّق، مكتمل، إلخ)
+            $table->date('order_date')->nullable(); // تاريخ الطلب
+            $table->time('order_time')->nullable();// وقت الطلب
             $table->timestamps(); // created_at و updated_at (تلقائي)
 
-            // الحقول الإضافية (اختيارية)
-//            $table->string('shipping_address')->nullable(); // عنوان الشحن
-//            $table->string('payment_method')->nullable(); // طريقة الدفع
-//            $table->string('payment_status')->default('pending'); // حالة الدفع
-//            $table->text('notes')->nullable(); // ملاحظات إضافية
 
             // Foreign key لربط الطلب بالمستخدم
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

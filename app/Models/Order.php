@@ -14,10 +14,8 @@ class Order extends Model
         'items',
         'total_amount',
         'status',
-        'shipping_address',
-        'payment_method',
-        'payment_status',
-        'notes',
+        'order_time',
+        'order_date'
     ];
 
     // العلاقة مع المستخدم
