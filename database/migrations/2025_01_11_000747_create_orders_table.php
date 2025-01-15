@@ -22,6 +22,7 @@ public function up()
             $table->string('status')->default('pending'); // حالة الطلب (معلّق، مكتمل، إلخ)
             $table->date('order_date')->nullable(); // تاريخ الطلب
             $table->time('order_time')->nullable();// وقت الطلب
+            $table->unsignedBigInteger('driver_id')->nullable(); // معرف المستخدم الذي قام بالطلب
             $table->timestamps(); // created_at و updated_at (تلقائي)
 
 
