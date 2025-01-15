@@ -95,7 +95,6 @@ Route::get('/orders/{orderId}/edit', [OrderController::class, 'editOrder']);
 // حفظ التعديلات على الطلب
 Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
 Route::put('/orders/{orderId}/status', [OrderController::class, 'changeOrderStatus']);
-//عرض الطلبات البيندينغ
-Route::get('/order/get/pending', [OrderController::class, 'getPendingOrders']);
+
 // عرض الطلبات الان بروغرس
 Route::get('/order/get/inProgress', [DriverController::class, 'getInProgressOrders']);
