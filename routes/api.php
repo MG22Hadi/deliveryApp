@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -99,3 +100,18 @@ Route::put('/orders/{orderId}/status', [OrderController::class, 'changeOrderStat
 Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
 
 Route::get('/orders/pp', [OrderController::class, 'getPendingOrders']);
+
+Route::prefix('driver')->group(function () {
+    Route::post('/register', [DriverController::class, 'register']);
+    Route::post('/login', [DriverController::class, 'login']);
+    Route::middleware('auth:api')->get('/me', [DriverAuthController::class, 'getDriverData']);
+});
+
+Route::prefix('driver')->group(function () {
+    Route::post('/register', [DriverController::class, 'register']);
+    Route::post('/login', [DriverController::class, 'login']);
+    Route::middleware('auth:driver-api')->get('/me', [DriverController::class, 'getDriver']);
+    Route::middleware('auth:driver-api')->post('/update', [DriverController::class, 'updateDriver']);
+    Route::middleware('auth:driver-api')->post('/change-password', [DriverController::class, 'changePassword']);
+    Route::middleware('auth:driver-api')->post('/logout', [DriverController::class, 'logout']);
+});
