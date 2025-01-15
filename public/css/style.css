@@ -105,6 +105,7 @@ body {
 .list {
     list-style-type: none;
     padding: 0;
+    margin-top: -10px;
 }
 
 .list li {
@@ -291,32 +292,72 @@ button .circle {
 
 
 /*DRI*/
-/*.custom-card {
-    width: 200px;
-    height: 200px;
+#tt {
+    color: #de0afa;
+    /*color:#007bff; */
+    text-align: left;
+    font-style: italic;
+    font-size: 3em;
+    padding-bottom: 7px;
+    margin-top: 20px;
 }
-.card-img-custom{
-  height: 50px;
-  object-fit: cover;
-}
-.centered-row {
-  margin: 0 auto;
-}*/
+/* تحسين أبعاد الصورة */
 .card-img-custom {
-    height: 200px;
+    height: 180px; /* ارتفاع الصورة */
     object-fit: cover;
+    width: 100%; /* عرض الصورة بنسبة 100% من الكارد */
+    border-top-left-radius: 10px; /* زوايا مدورة للصورة */
+    border-top-right-radius: 10px;
 }
+
+/* تحسين أبعاد الكارد */
+.custom-card {
+    height: 100%; /* ارتفاع الكارد */
+    width: 100%; /* عرض الكارد بنسبة 100% من العمود */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* توزيع العناصر بشكل متساوٍ */
+    border: 1px solid #ddd; /* إضافة حدود للكارد */
+    border-radius: 10px; /* زوايا مدورة */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير عند التمرير */
+}
+
+.custom-card:hover {
+    transform: translateY(-20px); /* رفع الكارد قليلاً عند التمرير */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* زيادة الظل عند التمرير */
+}
+
+/* تحسين العنوان */
+.card-title-custom {
+    font-size: 22px; /* حجم العنوان */
+    color: #d318f4;
+    margin-bottom: 10px; /* إضافة مسافة أسفل العنوان */
+    font-weight: bold; /* جعل العنوان أكثر سماكة */
+}
+
+/* تحسين النصوص */
+.card-text {
+    font-size: 16px; /* حجم النص */
+    color: #555;
+    margin-bottom: 8px; /* إضافة مسافة بين النصوص */
+}
+
+/* تحسين الصفوف والأعمدة */
 .row {
     margin: 0; /* إزالة الهوامش الافتراضية للصف */
 }
-.g-4,
-.gx-4 {
-    --bs-gutter-x: 0.5rem; /* تقليل المسافة الأفقية */
+
+/* تحسين الحاوية */
+#cardD{
+    padding: 20px; /* إضافة مسافة حول الحاوية */
+    max-width: 1300px; /* تحديد عرض أقصى للحاوية */
+    margin: 0 auto; /* توسيط الحاوية */
+    margin-top: 50px;
 }
-.card-title-custom {
-    font-size: 24px;
-    color: #d318f4;
-}
+
+
+
 
 /* تنسيق زر Logout */
 .logout-btn-container {

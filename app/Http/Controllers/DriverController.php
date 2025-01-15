@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Driver;
 use App\Models\Order;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
@@ -10,6 +11,11 @@ class DriverController extends Controller
 {
     use GeneralTrait; // استخدام الـ Trait
 
+    public function index()
+    {
+        $drivers = Driver::all(); // جلب جميع السائقين من قاعدة البيانات
+        return view('drivers', compact('drivers')); // إرسال البيانات إلى الواجهة
+    }
     public function getInProgressOrders()
     {
         try {

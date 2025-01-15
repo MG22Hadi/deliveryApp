@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\AddStoreController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -33,9 +34,12 @@ Route::get('/orders', function () {
     return view('orders');
 })->name('orders');
 
-Route::get('/drivers', function () {
-    return view('drivers');
-})->name('drivers');
+//Route::get('/drivers', function () {
+//    return view('drivers');
+//})->name('drivers');
+
+Route::get('/drivers', [DriverController::class, 'index'])->name('drivers');
+
 
 Route::get('/add-product', function () {
     return view('add-product');
