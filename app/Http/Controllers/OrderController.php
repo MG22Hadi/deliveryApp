@@ -306,4 +306,21 @@ public function updateOrder(Request $request, $orderId)
         }
     }
 
+    public function getPendingOrders()
+{
+    try {
+        $pendingOrders = Order::where('status', 'pending')
+                              ->with('user') // تحميل بيانات المستخدم مع كل طلب
+                              ->get();
+
+        // إذا لم يكن هناك طلبات معلقة
+        if ($pendingOrders->isEmpty()) {
+            return view('orders')->with('error', 'No pending orders found');
+        }
+        return $this->returnData('pending_orders', $pendingOrders, 'Pending orders retrieved successfully');
+    } catch (\Exception $ex) {
+        return $this->returnError($ex->getCode(), $ex->getMessage());
+    }
+}
+
 }

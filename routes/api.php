@@ -3,7 +3,6 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DriverController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -104,3 +103,5 @@ Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder'])
 
 // عرض الطلبات الان بروغرس
 Route::get('/order/get/inProgress', [DriverController::class, 'getInProgressOrders']);
+
+Route::get('/orders/pp', [OrderController::class, 'getPendingOrders']);

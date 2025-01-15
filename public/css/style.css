@@ -167,9 +167,6 @@ body {
     font-size: 30px;
     letter-spacing: 1px;
 }
-
-
-
 /* table*/
 #t {
     color: #de0afa;
@@ -340,164 +337,20 @@ button .circle {
     color: purple; /* تغيير لون النص عند التمرير */
     border-bottom-color: purple; /* تغيير لون الخط عند التمرير */
 }
-
-
-/** add*****************************************************************************/
-/* توسيط الصفحة */
-.centered-container {
-    display: flex;
-    justify-content: center; /* توسيط أفقي */
-    align-items: center; /* توسيط عمودي */
-    min-height: 100vh; /* ارتفاع الصفحة بالكامل */
-    padding: 20px; /* إضافة padding لتجنب الالتصاق بالحواف */
-    margin-top: -60px; /* رفع الـ container للأعلى */
-}
-#addt {
-    font-size: 3rem; /* حجم الخط */
-    color: #de0afa; /* لون الخط */
-    font-style: italic;
+/* توسيط النص في الخلايا */
+#mytable th,
+#mytable td {
+    text-align: center; /* توسيط النص أفقيًا */
+    vertical-align: middle; /* توسيط النص عموديًا */
 }
 
-/* تخصيص حقول الإدخال */
-.custom-input {
-    width: 250px; /* تقليل العرض */
-    background-color: #1d182a; /* لون خلفية فاتح */
-    padding: 10px; /* إضافة padding لتحسين المظهر */
-    border: 1px solid #ced4da; /* إطار بسيط */
-    border-radius: 5px; /* زوايا مدورة */
-    font-size: 1rem; /* حجم الخط */
-    color: #333; /* لون النص */
-    transition: background-color 0.3s ease; /* تأثير تغيير اللون */
-}
-.custom-input::file-selector-button {
-    background-color: #1d182a; /* لون خلفية الزر */
-    color: white; /* لون نص الزر */
-    padding: 9px 19px; /* التباعد الداخلي للزر */
-    border: none; /* إزالة الحدود */
-    border-radius: 5px; /* زوايا مدورة للزر */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+/* توسيط النص في عناصر <dl> داخل الخلايا */
+#mytable .product-list {
+    text-align: center; /* توسيط النص أفقيًا */
 }
 
-.custom-input::file-selector-button:hover {
-    background-color: #fe5ff3; /* لون خلفية الزر عند التمرير */
-
-}
-.custom-inputd {
-    width: 510px; /* تقليل العرض */
-    background-color:#1d182a ;/* لون خلفية فاتح */
-    padding: 10px; /* إضافة padding لتحسين المظهر */
-    border: 1px solid #ced4da; /* إطار بسيط */
-    border-radius: 5px; /* زوايا مدورة */
-    font-size: 1rem; /* حجم الخط */
-    color: #333; /* لون النص */
-    transition: background-color 0.3s ease; /* تأثير تغيير اللون */
-}
-.custom-inputcpq {
-    width: 160px; /* تقليل العرض */
-    background-color: #1d182a; /* لون خلفية فاتح */
-    padding: 10px; /* إضافة padding لتحسين المظهر */
-    border: 1px solid #ced4da; /* إطار بسيط */
-    border-radius: 5px; /* زوايا مدورة */
-    font-size: 1rem; /* حجم الخط */
-    color: #333; /* لون النص */
-    transition: background-color 0.3s ease; /* تأثير تغيير اللون */
-}
-.custom-input:focus {
-    background-color: #e9ecef; /* لون خلفية عند التركيز */
-    border-color: #730f89; /* لون الإطار عند التركيز */
-    outline: none; /* إزالة الحد الأصلي عند التركيز */
-}
-.custom-inputd:focus {
-    background-color: #e9ecef; /* لون خلفية عند التركيز */
-    border-color: #730f89; /* لون الإطار عند التركيز */
-    outline: none; /* إزالة الحد الأصلي عند التركيز */
-}
-
-
-
-/* تحسين الـ labels باستخدام الـ id */
-#category_id_label {
-    font-size: 1.2rem; /* حجم الخط */
-    color: #d95bd9; /* لون الخط */
-    font-weight: bold; /* سماكة الخط */
-}
-
-#name_label {
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#description_label {
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#price_label{
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#image_label{
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#Ad-image_label{
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#categoryName_label{
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#storeName_label{
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-
-#quantity_label {
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-#add-b{
-    width: 300px;
-    height: 50px;
-    left: 120px;
-    /*margin-top: -5px;*/
-}
-#address_label, #phone_label, #logo_label {
-    font-size: 1.2rem;
-    color: #d95bd9;
-    font-weight: bold;
-}
-.custom-popup {
-    width: 300px; /* تصغير عرض النافذة */
-    font-size: 16px; /* تصغير حجم الخط العام */
-}
-
-.custom-title {
-    font-size: 20px; /* تصغير حجم العنوان */
-}
-
-.custom-text {
-    font-size: 16px; /* تصغير حجم النص */
-}
-
-.custom-button {
-    font-size: 16px; /* تصغير حجم الزر */
-    padding: 5px 10px; /* تصغير حجم الزر */
-    background-color: #6C55AF;
-    width: 125px;
-    /*right: 10px;*/
-    margin-right: 38px;
+#mytable .product-list dt,
+#mytable .product-list dd {
+    display: inline-block; /* لجعل <dt> و <dd> في نفس السطر */
+    margin: 0 5px; /* إضافة مسافة بين <dt> و <dd> */
 }

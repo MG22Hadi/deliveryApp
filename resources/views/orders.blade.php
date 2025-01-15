@@ -21,66 +21,68 @@
                 <i class="fas fa-times"></i>
             </button>
 
-            <img src="{{ asset('webImages/logo2.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('webImages/logo2.jpg') }}" alt="Logo" class="logo">
             <p class="text" id="mytitle">Beeb Beeb</p>
 
             <ul class="list">
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('orders') }}">Orders</a></li>
                 <li><a href="{{ route('drivers') }}">Drivers</a></li>
-                <li><a href="{{ route('add-product') }}">Add Product</a></li>
-                <li><a href="{{ route('add-store') }}">Add Store</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-
-
-
 <h1 id="t">Orders to send</h1>
 
-
 <div class="container">
-    <table class="table table-bordered table-dark  " id="mytable">
+    <table table class="table table-bordered table-dark" id="mytable">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">order id</th>
-            <th scope="col">name</th>
-            <th scope="col">location</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
             <th scope="col">
                 <div class="orders-header">
                     Orders
                     <div class="product-quantity-labels">
-                        <span id="s2">product name</span><span id="s">|||</span><span>quantity</span>
+                        <span id="s2">Product Name</span><span id="s">|||</span><span>Quantity</span>
                     </div>
-                </div></th>
-            <th scope="col">Total price</th>
-            <th>Send order</th>
-
-
+                </div>
+            </th>
+            <th scope="col">Total Price</th>
+            <th>Send Order</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row">1</th>
-            <td>Noura</td>
-            <td>500.0</td>
-
-            <td>
-                <dl class="product-list">
-                    <dt>product1</dt><dd>2</dd>
-                    <dt>اسم المنتج 2</dt><dd>1</dd>
-                    <dt>اسم المنتج 3</dt><dd>5</dd>
-                </dl>
-            </td>
-            <td>paris</td>
-            <td><button href="#" class="ripple">SEND</button></td>
-
-        </tr>
-
+        @if(isset($pendingOrders) && count($pendingOrders) > 0)
+            @foreach($pendingOrders as $index => $order)
+                <tr>
+                    <th scope="row"></th>
+                    <td>{{ $order['id'] }}</td>
+                    <td>{{$order['user']['first-name'] }} {{ $order['user']['last-name']}}</td>
+                    <td>{{ 'N/A' }}</td>
+                    <td>
+                        <dl class="product-list">
+                            @php
+                                $items = json_decode($order['items'], true); // تحويل items من JSON إلى Array
+                            @endphp
+                            @foreach($items as $item)
+                                <dt>{{ $item['product']['name'] ?? 'N/A' }}</dt>
+                                <dd>{{ $item['quantity'] ?? 'N/A' }}</dd>
+                            @endforeach
+                        </dl>
+                    </td>
+                    <td>{{ $order['total_amount'] }}</td>
+                    <td><button href="#" class="ripple">SEND</button></td>
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="7" class="text-center">No pending orders found</td>
+            </tr>
+        @endif
         </tbody>
     </table>
 </div>
@@ -89,5 +91,3 @@
 <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
-
-

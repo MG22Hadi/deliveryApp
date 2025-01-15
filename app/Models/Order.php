@@ -19,8 +19,11 @@ class Order extends Model
     ];
 
     // العلاقة مع المستخدم
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // في ملف Order.php
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
+    // في نموذج Order (App\Models\Order.php)
 }
