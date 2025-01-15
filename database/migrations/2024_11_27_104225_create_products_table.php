@@ -21,7 +21,7 @@ return new class extends Migration
                                     // before fasle  //after
             $table->decimal('price', 8, 2);
             $table->string('image');
-            $table->string('Ad-image')->nullable();
+            $table->string('AdImage')->nullable();
             $table->string('categoryName');
             $table->string('storeName');
             $table->integer('quantity');
