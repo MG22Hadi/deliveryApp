@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('location');
+            $table->string('image');
+            $table->string('password');
             $table->timestamps();
         });
     }
