@@ -125,6 +125,23 @@ public function checkout()
             return $this->returnError('E403', 'Order cannot be edited');
         }
 
+        // تحويل items من JSON إلى مصفوفة PHP
+        $itemsArray = json_decode($order->items, true);
+
+        // إعادة تعيين المصفوفة المشفرة إلى الـ order
+        $order->items = $itemsArray;
+
+        // تحويل created_at إلى كائن Carbon وإضافة 3 ساعات
+        $createdAt = \Carbon\Carbon::parse($order->created_at)->addHours(3);
+
+        // تحويل created_at إلى تنسيق التاريخ والوقت المطلوب
+        $orderDate = $createdAt->format('Y-m-d'); // التاريخ فقط
+        $orderTime = $createdAt->format('H:i'); // الوقت فقط (ساعات ودقائق)
+
+        // إضافة التاريخ والوقت إلى الـ order
+        $order->order_date = $orderDate;
+        $order->order_time = $orderTime;
+
         // إرجاع تفاصيل الطلب إلى واجهة السلة
         return $this->returnData('order', $order, 'Order retrieved successfully');
     } catch (\Exception $ex) {
@@ -246,12 +263,11 @@ public function updateOrder(Request $request, $orderId)
             }
         }
 
-        // تغيير حالة الطلب إلى "ملغى"
-        $order->status = 'canceled';
-        $order->save();
+        // حذف الطلب من قاعدة البيانات
+        $order->delete();
 
         // إرجاع رسالة نجاح
-        return $this->returnSuccessMessage('Order canceled successfully');
+        return $this->returnSuccessMessage('Order deleted successfully');
     } catch (\Exception $ex) {
         return $this->returnError($ex->getCode(), $ex->getMessage());
     }
