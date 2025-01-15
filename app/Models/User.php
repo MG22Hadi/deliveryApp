@@ -24,7 +24,6 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'profile_image',
         'password',
-        'remember_token',
     ];
 
 
@@ -51,7 +50,7 @@ class User extends Authenticatable implements JWTSubject
     public function cart()
     {//TODO
         return $this->hasOne(Cart::class);
-        //return $this->hasMany(Cart::class);
+
     }
 
     public function favourite()

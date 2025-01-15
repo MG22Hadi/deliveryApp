@@ -105,3 +105,15 @@ Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder'])
 Route::get('/order/get/inProgress', [DriverController::class, 'getInProgressOrders']);
 
 Route::get('/orders/pp', [OrderController::class, 'getPendingOrders']);
+
+Route::get('/orders/pp', [OrderController::class, 'getPendingOrders']);
+
+
+Route::prefix('driver')->group(function () {
+    Route::post('/register', [DriverController::class, 'register']);
+    Route::post('/login', [DriverController::class, 'login']);
+    Route::middleware('auth:driver-api')->get('/me', [DriverController::class, 'getDriver']);
+    Route::middleware('auth:driver-api')->post('/update', [DriverController::class, 'updateDriver']);
+    Route::middleware('auth:driver-api')->post('/change-password', [DriverController::class, 'changePassword']);
+    Route::middleware('auth:driver-api')->post('/logout', [DriverController::class, 'logout']);
+});
