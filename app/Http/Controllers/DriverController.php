@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Driver;
 use App\Models\Order;
 use App\Services\DriverAuthService;
 use Illuminate\Http\Request;
@@ -107,6 +108,11 @@ class DriverController extends Controller
         }
     }
 
+    public function index()
+    {
+        $drivers = Driver::all(); // جلب جميع السائقين من قاعدة البيانات
+        return view('drivers', compact('drivers')); // إرسال البيانات إلى الواجهة
+    }
     public function getInProgressOrders()
     {
         try {
@@ -118,6 +124,18 @@ class DriverController extends Controller
             if ($inProgressOrders->isEmpty()) {
                 return $this->returnError('E404', 'No in_progress orders found');
             }
+
+
+//            // تحويل items من JSON إلى مصفوفة PHP
+//            $itemsArray = json_decode($inProgressOrders->items, true);
+//
+//            // إعادة تعيين المصفوفة المشفرة إلى الـ order
+//            $inProgressOrders->items = $itemsArray;
+//
+//            // إرجاع تفاصيل الطلبات المعلقة
+//            return $this->returnData('in_progress_orders', $inProgressOrders, 'In_progress orders retrieved successfully');
+//        } catch (\Exception $ex) {
+//            return $this->returnError($ex->getCode(), $ex->getMessage());
 
             // تكرار على كل طلب وفك تشفير items
             $inProgressOrders->each(function ($order) {
