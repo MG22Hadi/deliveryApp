@@ -104,7 +104,7 @@ Route::get('/orders/pp', [OrderController::class, 'getPendingOrders']);
 Route::prefix('driver')->group(function () {
     Route::post('/register', [DriverController::class, 'register']);
     Route::post('/login', [DriverController::class, 'login']);
-    Route::middleware('auth:api')->get('/me', [DriverAuthController::class, 'getDriverData']);
+    Route::middleware('auth:api')->get('/me', [DriverController::class, 'getDriverData']);
 });
 
 Route::prefix('driver')->group(function () {
@@ -115,3 +115,5 @@ Route::prefix('driver')->group(function () {
     Route::middleware('auth:driver-api')->post('/change-password', [DriverController::class, 'changePassword']);
     Route::middleware('auth:driver-api')->post('/logout', [DriverController::class, 'logout']);
 });
+
+Route::post('/orders/assign-driver', [DriverController::class, 'assignDriver']);

@@ -109,10 +109,12 @@ class DriverController extends Controller
     }
 
     public function index()
-    {
-        $drivers = Driver::all(); // جلب جميع السائقين من قاعدة البيانات
-        return view('drivers', compact('drivers')); // إرسال البيانات إلى الواجهة
-    }
+{
+    $pendingOrders = Order::where('status', 'pending')->with('user')->get();
+    $drivers = Driver::all();
+
+    return view('orders', compact('pendingOrders', 'drivers'));
+}
     public function getInProgressOrders()
     {
         try {
@@ -148,6 +150,27 @@ class DriverController extends Controller
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
+
+    public function assignDriver(Request $request)
+{
+    $request->validate([
+        'driver_id' => 'required|exists:drivers,id',
+        'order_id' => 'required|exists:orders,id',
+    ]);
+
+    // البحث عن الطلب وتحديث driver_id
+    $order = Order::find($request->order_id);
+
+    if (!$order) {
+        return response()->json(['message' => 'الطلب غير موجود'], 404);
+    }
+
+    $order->driver_id = $request->driver_id;
+    $order->status ="in_progress";
+    $order->save();
+
+    return response()->json(['message' => 'تم تعيين السائق بنجاح']);
+}
 
 
 }

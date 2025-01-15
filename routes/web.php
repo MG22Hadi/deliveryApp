@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\AddStoreController;
+use App\Http\Controllers\api\admin\AdminAuthController;
+use App\Http\Controllers\DashController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -37,7 +40,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //    return view('drivers');
 //})->name('drivers');
 
-Route::get('/drivers', [DriverController::class, 'index'])->name('drivers');
+Route::get('/drivers', [DashController::class, 'index'])->name('drivers');
 
 
 Route::get('/add-product', function () {
@@ -79,4 +82,4 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // الحصول على بيانات المستخدم
 Route::get('/admin/user', [AdminAuthController::class, 'getUser'])->name('admin.user')->middleware('jwt.auth');
 
-Route::get('/orders', [DAshController::class, 'getPendingOrders'])->name('orders') ;
+Route::get('/orders', [DriverController::class, 'index'])->name('orders') ;
