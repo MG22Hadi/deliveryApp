@@ -21,13 +21,15 @@
                 <i class="fas fa-times"></i>
             </button>
 
-            <img src="{{ asset('webImages/logo2.jpg') }}" alt="Logo" class="logo">
+            <img src="{{ asset('webImages/logo2.png') }}" alt="Logo" class="logo">
             <p class="text" id="mytitle">Beeb Beeb</p>
 
             <ul class="list">
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('orders') }}">Orders</a></li>
                 <li><a href="{{ route('drivers') }}">Drivers</a></li>
+                <li><a href="{{ route('add-product') }}">Add Product</a></li>
+                <li><a href="{{ route('add-store') }}">Add Store</a></li>
             </ul>
         </div>
     </div>
@@ -65,21 +67,7 @@
             <th scope="row"></th>
             <th scope="row">1</th>
             <td>Noura</td>
-            <td>paris</td><!----
-          <td>
-            <div class="row">
-              <div class="col-6">اسم المنتج 1</div>
-              <div class="col-6">الكمية: 2</div>
-            </div>
-            <div class="row">
-              <div class="col-6">اسم المنتج 2</div>
-              <div class="col-6">الكمية: 1</div>
-            </div>
-             <div class="row">
-              <div class="col-6">اسم المنتج 3</div>
-              <div class="col-6">الكمية: 5</div>
-             </div>
-          </td>-->
+            <td>500.0</td>
 
             <td>
                 <dl class="product-list">
@@ -103,155 +91,3 @@
 </html>
 
 
-
-<!--
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">2</th>
-          <td>محمد</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 4</div>
-                <div class="col-6">الكمية: 3</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-            <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>علي</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        -->

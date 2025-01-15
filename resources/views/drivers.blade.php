@@ -21,13 +21,15 @@
                 <i class="fas fa-times"></i>
             </button>
 
-            <img src="{{ asset('webImages/logo2.jpg') }}" alt="Logo" class="logo">
+            <img src="{{ asset('webImages/logo2.png') }}" alt="Logo" class="logo">
             <p class="text" id="mytitle">Beeb Beeb</p>
 
             <ul class="list">
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('orders') }}">Orders</a></li>
                 <li><a href="{{ route('drivers') }}">Drivers</a></li>
+                <li><a href="{{ route('add-product') }}">Add Product</a></li>
+                <li><a href="{{ route('add-store') }}">Add Store</a></li>
             </ul>
         </div>
     </div>
