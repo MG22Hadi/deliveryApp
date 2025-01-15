@@ -33,66 +33,56 @@
     </div>
 </div>
 
-
-
-
 <h1 id="t">Orders to send</h1>
 
-
 <div class="container">
-    <table class="table table-bordered table-dark  " id="mytable">
+    <table table class="table table-bordered table-dark" id="mytable">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">order id</th>
-            <th scope="col">name</th>
-            <th scope="col">location</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
             <th scope="col">
                 <div class="orders-header">
                     Orders
                     <div class="product-quantity-labels">
-                        <span id="s2">product name</span><span id="s">|||</span><span>quantity</span>
+                        <span id="s2">Product Name</span><span id="s">|||</span><span>Quantity</span>
                     </div>
-                </div></th>
-            <th scope="col">Total price</th>
-            <th>Send order</th>
-
-
+                </div>
+            </th>
+            <th scope="col">Total Price</th>
+            <th>Send Order</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row"></th>
-            <th scope="row">1</th>
-            <td>Noura</td>
-            <td>paris</td><!----
-          <td>
-            <div class="row">
-              <div class="col-6">اسم المنتج 1</div>
-              <div class="col-6">الكمية: 2</div>
-            </div>
-            <div class="row">
-              <div class="col-6">اسم المنتج 2</div>
-              <div class="col-6">الكمية: 1</div>
-            </div>
-             <div class="row">
-              <div class="col-6">اسم المنتج 3</div>
-              <div class="col-6">الكمية: 5</div>
-             </div>
-          </td>-->
-
-            <td>
-                <dl class="product-list">
-                    <dt>product1</dt><dd>2</dd>
-                    <dt>اسم المنتج 2</dt><dd>1</dd>
-                    <dt>اسم المنتج 3</dt><dd>5</dd>
-                </dl>
-            </td>
-            <td>paris</td>
-            <td><button href="#" class="ripple">SEND</button></td>
-
-        </tr>
-
+        @if(isset($pendingOrders) && count($pendingOrders) > 0)
+            @foreach($pendingOrders as $index => $order)
+                <tr>
+                    <th scope="row"></th>
+                    <td>{{ $order['id'] }}</td>
+                    <td>{{$order['user']['first-name'] }} {{ $order['user']['last-name']}}</td>
+                    <td>{{ 'N/A' }}</td>
+                    <td>
+                        <dl class="product-list">
+                            @php
+                                $items = json_decode($order['items'], true); // تحويل items من JSON إلى Array
+                            @endphp
+                            @foreach($items as $item)
+                                <dt>{{ $item['product']['name'] ?? 'N/A' }}</dt>
+                                <dd>{{ $item['quantity'] ?? 'N/A' }}</dd>
+                            @endforeach
+                        </dl>
+                    </td>
+                    <td>{{ $order['total_amount'] }}</td>
+                    <td><button href="#" class="ripple">SEND</button></td>
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="7" class="text-center">No pending orders found</td>
+            </tr>
+        @endif
         </tbody>
     </table>
 </div>
@@ -101,157 +91,3 @@
 <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
-
-
-
-<!--
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">2</th>
-          <td>محمد</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 4</div>
-                <div class="col-6">الكمية: 3</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-            <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>علي</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <th scope="row">3</th>
-          <td>noura</td>
-          <td>paris</td>
-          <td>
-              <div class="row">
-                <div class="col-6">اسم المنتج 5</div>
-                <div class="col-6">الكمية: 1</div>
-              </div>
-                 <div class="row">
-                <div class="col-6">اسم المنتج 6</div>
-                <div class="col-6">الكمية: 2</div>
-              </div>
-          </td>
-          <td>paris</td>
-        </tr>
-        -->

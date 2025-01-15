@@ -337,3 +337,20 @@ button .circle {
     color: purple; /* تغيير لون النص عند التمرير */
     border-bottom-color: purple; /* تغيير لون الخط عند التمرير */
 }
+/* توسيط النص في الخلايا */
+#mytable th,
+#mytable td {
+    text-align: center; /* توسيط النص أفقيًا */
+    vertical-align: middle; /* توسيط النص عموديًا */
+}
+
+/* توسيط النص في عناصر <dl> داخل الخلايا */
+#mytable .product-list {
+    text-align: center; /* توسيط النص أفقيًا */
+}
+
+#mytable .product-list dt,
+#mytable .product-list dd {
+    display: inline-block; /* لجعل <dt> و <dd> في نفس السطر */
+    margin: 0 5px; /* إضافة مسافة بين <dt> و <dd> */
+}
