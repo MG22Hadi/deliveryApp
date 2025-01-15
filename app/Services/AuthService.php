@@ -23,6 +23,7 @@ class AuthService
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
             'profile_image'=>'storage/profile_images/default.jpg',
+            'location'=>'Damascus'
         ]);
 
         // تعيين المستخدم المسجل كمستخدم حالي
