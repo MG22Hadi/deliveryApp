@@ -117,3 +117,5 @@ Route::prefix('driver')->group(function () {
 });
 
 Route::post('/orders/assign-driver', [DriverController::class, 'assignDriver']);
+
+Route::get('/order/get/inProgress', [DriverController::class, 'getInProgressOrders'])->middleware('auth:driver-api');

@@ -38,17 +38,21 @@
 <h1 id="tt">The Drivers</h1>
 
 
-
 <div class="container" id="cardD">
     <div class="row justify-content-center"> <!-- توسيط الصف أفقيًا -->
         @foreach($drivers as $driver)
             <div class="col-12 col-sm-6 col-md-2 mb-4"> <!-- 3 كاردات في الصف الواحد -->
                 <div class="card h-100 custom-card">
-                    <img src="{{ asset($driver->image) }}" class="card-img-top card-img-custom" alt="{{ $driver->name }}">
+                    <!-- التحقق من وجود صورة السائق -->
+                    @if($driver->image && file_exists(public_path($driver->image)))
+                        <img src="{{ asset($driver->image) }}" class="card-img-top card-img-custom" alt="{{ $driver->name }}">
+                    @else
+                        <img src="{{ asset('storage/profile_images/default.jpg') }}" class="card-img-top card-img-custom" alt="Default Image">
+                    @endif
                     <div class="card-body">
                         <h5 class="card-title card-title-custom">{{ $driver->name }}</h5>
                         <p class="card-text"><strong>Location:</strong> {{ $driver->location }}</p>
-                        <p class="card-text"><strong>Phone:</strong> {{ $driver->phone}}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ $driver->phone }}</p>
                     </div>
                 </div>
             </div>
