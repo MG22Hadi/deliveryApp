@@ -35,62 +35,34 @@
     </div>
 </div>
 
+<h1 id="tt">The Drivers</h1>
 
 
-
-
-<div class="container">
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="row row-cols-1 row-cols-md-5 g-4"> <!--- تعديل هنا
-          --> <div class="col">
-                <div class="card">
-                    <img src="{{ asset('webImages/photo.jpg') }}" class="card-img-top card-img-custom" alt="  1">
+<div class="container" id="cardD">
+    <div class="row justify-content-center"> <!-- توسيط الصف أفقيًا -->
+        @foreach($drivers as $driver)
+            <div class="col-12 col-sm-6 col-md-2 mb-4"> <!-- 3 كاردات في الصف الواحد -->
+                <div class="card h-100 custom-card">
+                    <!-- التحقق من وجود صورة السائق -->
+                    @if($driver->image && file_exists(public_path($driver->image)))
+                        <img src="{{ asset($driver->image) }}" class="card-img-top card-img-custom" alt="{{ $driver->name }}">
+                    @else
+                        <img src="{{ asset('storage/profile_images/default.jpg') }}" class="card-img-top card-img-custom" alt="Default Image">
+                    @endif
                     <div class="card-body">
-                        <h5 class="card-title card-title-custom"> driver 1</h5>
-                        <p class="card-text">location</p>
+                        <h5 class="card-title card-title-custom">{{ $driver->name }}</h5>
+                        <p class="card-text"><strong>Location:</strong> {{ $driver->location }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ $driver->phone }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('webImages/photo4.jpg') }}" class="card-img-top card-img-custom" alt="  1">
-                    <div class="card-body">
-                        <h5 class="card-title card-title-custom"> driver 2</h5>
-                        <p class="card-text">location</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('webImages/photo3.jpg') }}" class="card-img-top card-img-custom" alt="  1">
-                    <div class="card-body">
-                        <h5 class="card-title card-title-custom"> driver 3</h5>
-                        <p class="card-text">location</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('webImages/photo2.jpg') }}" class="card-img-top card-img-custom" alt="  1">
-                    <div class="card-body">
-                        <h5 class="card-title card-title-custom"> driver 4</h5>
-                        <p class="card-text">location</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('webImages/photo5.jpg') }}" class="card-img-top card-img-custom" alt="  1">
-                    <div class="card-body">
-                        <h5 class="card-title card-title-custom"> driver 5</h5>
-                        <p class="card-text">location</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
+
+
