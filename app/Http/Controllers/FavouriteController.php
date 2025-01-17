@@ -6,12 +6,10 @@ use App\Models\Favourite;
 use App\Models\Product;
 use App\Models\User;
 use App\Services\AuthService;
-use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
-    use GeneralTrait;
     protected $authService;
 
     /**

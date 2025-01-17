@@ -21,7 +21,7 @@ class DriverAuthService
             'name' => $data['name'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'image' => '127.0.0.1:8000/storage/profile_images/default.jpg',
+            'profile_image' => 'storage/profile_images/default.jpg',
 
         ]);
 

@@ -10,12 +10,10 @@
 </head>
 <body>
 
-<!-- زر فتح القائمة الجانبية -->
 <button class="nav-btn open-btn">
     <i class="fas fa-bars"></i>
 </button>
 
-<!-- القائمة الجانبية -->
 <div class="nav nav-black">
     <div class="nav nav-red">
         <div class="nav nav-white">
@@ -30,19 +28,15 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('orders') }}">Orders</a></li>
                 <li><a href="{{ route('drivers') }}">Drivers</a></li>
-                <li><a href="{{ route('add-product') }}">Add Product</a></li>
-                <li><a href="{{ route('add-store') }}">Add Store</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<!-- العنوان الرئيسي -->
 <h1 id="t">Orders to send</h1>
 
-<!-- الجدول -->
 <div class="container">
-    <table class="table table-bordered table-dark" id="mytable">
+    <table table class="table table-bordered table-dark" id="mytable">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -81,9 +75,7 @@
                         </dl>
                     </td>
                     <td>{{ $order['total_amount'] }}</td>
-                    <td>
-                        <button class="ripple send-order-btn" data-order-id="{{ $order['id'] }}">SEND</button>
-                    </td>
+                    <td><button href="#" class="ripple">SEND</button></td>
                 </tr>
             @endforeach
         @else
@@ -95,64 +87,7 @@
     </table>
 </div>
 
-<!-- النافذة المنبثقة -->
-<div class="modal fade" id="driverModal" tabindex="-1" aria-labelledby="driverModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="driverModalLabel">Select a Driver</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul id="driver-list">
-                    @foreach($drivers as $driver)
-                        <li>
-                            <button class="select-driver btn btn-link" data-driver-id="{{ $driver->id }}" data-order-id="">
-                                {{ $driver['name'] }} {{ $driver['phone'] }}
-                            </button>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('js/script.js') }}"></script>
-
-<script>
-    $(document).ready(function() {
-        // عند النقر على زر SEND
-        $('.send-order-btn').click(function() {
-            const orderId = $(this).data('order-id'); // الحصول على order_id من الزر
-
-            // تعيين order_id للأزرار داخل النافذة المنبثقة
-            $('.select-driver').attr('data-order-id', orderId);
-
-            // عرض النافذة المنبثقة
-            $('#driverModal').modal('show');
-        });
-
-        // عند اختيار سائق
-        $(document).on('click', '.select-driver', function() {
-            const driverId = $(this).data('driver-id');
-            const orderId = $(this).data('order-id');
-
-            // إرسال الـ ID إلى API لتحديث حقل driver_id
-            $.post('/api/orders/assign-driver', { driver_id: driverId, order_id: orderId }, function(response) {
-                alert('تم تعيين السائق بنجاح!');
-                $('#driverModal').modal('hide'); // إغلاق النافذة المنبثقة
-                location.reload(); // إعادة تحميل الصفحة
-            }).fail(function(error) {
-                alert('حدث خطأ أثناء تعيين السائق.');
-            });
-        });
-    });
-</script>
 </body>
 </html>

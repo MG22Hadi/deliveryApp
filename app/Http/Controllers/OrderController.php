@@ -269,10 +269,16 @@ public function updateOrder(Request $request, $orderId)
     public function changeOrderStatus(Request $request, $orderId)
     {
         try {
+            // التحقق من صحة الـ Token والحصول على المستخدم
+            $user = JWTAuth::parseToken()->authenticate();
 
+            // إذا لم يتم العثور على المستخدم
+            if (!$user) {
+                return $this->returnError('E401', 'Unauthorized');
+            }
 
             // استرجاع الطلب
-            $order = Order::where('id', $orderId)->first();
+            $order = Order::where('id', $orderId)->where('user_id', $user->id)->first();
 
             // إذا لم يتم العثور على الطلب
             if (!$order) {

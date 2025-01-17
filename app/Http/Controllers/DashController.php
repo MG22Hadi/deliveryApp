@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Driver;
 use App\Models\Order;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
@@ -36,13 +35,5 @@ public function showUser()
 {
      $pendingOrders = Order::where('status', 'pending')->get();
      return view('orders', ['pendingOrders' => $pendingOrders]);
-}
-
- public function index()
-{
-
-    $drivers = Driver::all();
-
-    return view('drivers', compact( 'drivers'));
 }
 }
